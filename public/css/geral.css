@@ -33,15 +33,6 @@ main{
    
 }
 
-.text-index{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    flex-wrap: wrap;
-    width: 800px;
-}
-
 footer{
     background-color: #242832;
     height: 70px;
@@ -54,10 +45,18 @@ footer{
     height: 10vh;
 }
 
-.header-left{
+.header-logo{
     display: flex;
     align-items: center;
     cursor:default;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.header-title{
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .header-right{
@@ -66,27 +65,25 @@ footer{
     align-items: center;
 }
 
-li{
+li a {
+    text-decoration: none;
     color: #cbd4dc;
     padding-right: 20px;
     cursor: pointer;
 }
 
-
-
-li:hover{
+.footer-links li:hover{
     color: white;
 }
 
 .footer-links{
     display: flex;
     align-items: center;
-    cursor:default;
     list-style-type: none;
     /* padding: 0px;
     margin: 0px;
     margin-top: 10px; */
-    padding-left: 0px;
+        padding-left: 0px;
 }
 
 .footer-infos{
@@ -99,35 +96,4 @@ li:hover{
     align-items: center;
 }
 
-.login-div{
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
-    width: 25%;
-}
-
-input{
-    background-color: #30394c;
-    border-radius: 4px;
-    border: 1px solid #30394c;
-    height: 28px;
-    width: 98%;
-    margin-bottom: 10px;
-}
-
-input::placeholder{
-    color: #8f9ca7;
-    font-size: 16px;
-    font-weight: 400;
-}
-
-.login-button{
-    width: 100%;
-    background-color: #ea377a;
-    border: 1px solid #ea377a;
-    border-radius: 5px;
-    color: white;
-    height: 30px;
-    font-size: 16px;
-}
 

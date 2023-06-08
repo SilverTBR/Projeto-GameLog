@@ -2,17 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Index</title>
     <link href="css/geral.css" rel="stylesheet">
+    <link href="css/indexSty.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css"
     href="https://fonts.googleapis.com/css?family=Roboto">
 </head>
 <body>
     <header>
-        <div class="header-left">
+        <a class="header-logo" href="/">
            <img src="img/logo.png" class="logo">
-           <span>GameLog</span> 
-        </div>
+           <span class="header-title">GameLog</span> 
+        </a>
         
     </header>
     <main>
@@ -22,18 +23,18 @@
         </div>
 
         <div class="login-div">
-            <input placeholder="Email">
-            <input placeholder="Senha">
+            <input type="email" placeholder="Email">
+            <input type="password" placeholder="Senha">
             <button class="login-button">Login</button>
         </div>
     </main>
     <footer>
         <div class="footer-left">
             <ul class="footer-links">
-                <li class="footer-li">Sobre</li>
-                <li>Tecnologias</li>
-                <li>Desenvolvedores</li>
-                <li>Contato</li>
+                <li><a href="/sobre">Sobre</a></li>
+                <li><a>Tecnologias</a></li>
+                <li><a>Desenvolvedores</a></li>
+                <li><a>Contato</a></li>
             </ul>
             <span class="footer-infos">© GameLog 2023 • v0.01.0</span>
         </div>

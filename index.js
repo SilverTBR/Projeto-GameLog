@@ -15,6 +15,14 @@ app.get("/", (req, res) => {
     res.render("index")
 })
 
+app.get("/sobre", (req, res) => {
+    res.render("sobre")
+})
+
+// app.get("/sobre#teste", (req, res) => {
+//     res.render("/sobre", {scrollTo: "teste"})
+// })
+
 
 app.listen(3000, () => {
     console.log("Rodando...");

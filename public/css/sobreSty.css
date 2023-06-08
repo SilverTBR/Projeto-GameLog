@@ -1,0 +1,31 @@
+.main-conteudo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 900px;
+}
+
+.sub-conteudo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.secao-titulo{
+    align-self: flex-start;
+    font-weight:lighter;
+    color: #8f9ca7;
+    margin-bottom: 0px;
+}
+
+p{
+    color: #badefc;
+    line-height: 1.2;
+}
+
+.logo-tecnologias{
+    height: 20vh;
+}
