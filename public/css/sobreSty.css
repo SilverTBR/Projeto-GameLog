@@ -26,6 +26,69 @@ p{
     line-height: 1.2;
 }
 
+.logos{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+
+}
+
 .logo-tecnologias{
     height: 20vh;
+}
+
+.img-dev{
+    height: 40vh;
+}
+
+.dev{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.dev-info{
+    margin-left: 20px;
+}
+
+.secao-contato{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+input{
+    width: 40%;
+    margin-bottom: 20px;
+}
+
+label{
+    color: white;
+}
+
+textarea{
+    background-color: #30394c;
+    border-radius: 4px;
+    border: 1px solid #30394c;
+    width: 40%;
+    resize: none;
+    height: 150px;
+    color: #fff;
+    font-size: 16px;
+    font-family: inherit;
+    margin-bottom: 20px;
+}
+
+.button-contato{
+    width: 40%;
+    margin-bottom: 20px;
+}
+
+.aviso.aviso-contato{
+    width: 40%;
+    height: 40px;
 }
