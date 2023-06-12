@@ -66,10 +66,13 @@ footer{
 }
 
 li a {
-    text-decoration: none;
     color: #cbd4dc;
     padding-right: 20px;
+}
+
+a{
     cursor: pointer;
+    text-decoration: none;
 }
 
 .footer-links li:hover a{
@@ -108,13 +111,20 @@ input{
 
 button{
     background-color: #ea377a;
-    border: 1px solid #ea377a;
+    border: 2px solid #ea377a;
     border-radius: 5px;
     color: white;
     height: 30px;
     font-size: 16px;
     cursor: pointer;
 }
+
+button:hover{
+    background-color: white;
+    color: black;
+}
+
+
 
 .aviso{
     background-color: #ff69a0;
@@ -124,6 +134,9 @@ button{
     display: none;
     align-items: center;
     padding-left: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+
 }
 
 .aviso-text{

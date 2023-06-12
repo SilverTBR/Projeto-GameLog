@@ -17,6 +17,8 @@ window.onload = () => {
         return document.getElementById("assunto").value
     }
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     const buttonSucesso = () => {
         document.getElementById("enviar").style.backgroundColor = "#d4edda"
         document.getElementById("enviar").style.borderColor = "#c3e6cb"
@@ -28,7 +30,7 @@ window.onload = () => {
     }
 
     const enviarEmail = async () => {
-        if(document.getElementById("email").validity.valid && getNome().trim() != "" && getMensagem().trim() != "" && getAssunto().trim() != ""){
+        if(emailRegex.test(getEmail()) && getNome().trim() != "" && getMensagem().trim() != "" && getAssunto().trim() != ""){
             let resposta = await emailService.enviar(getEmail(), getNome(), getMensagem(), getAssunto());
             if(resposta.accepted){
                 buttonSucesso()
