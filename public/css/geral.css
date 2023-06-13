@@ -12,8 +12,12 @@ body{
     font-family: 'Roboto';
 }
 
+label{
+    color: white;
+}
+
 header{
-    background-color: #242832;
+    background-color: #16181c;
     height: 65px;
     display: flex;
     justify-content: space-between;
@@ -79,6 +83,10 @@ a{
     color: white;
 }
 
+.header-right li:hover a{
+    color: white;
+}
+
 .footer-links{
     display: flex;
     align-items: center;
@@ -141,6 +149,25 @@ button:hover{
 
 .aviso-text{
     color: red;
+}
+
+.secao-titulo{
+    align-self: flex-start;
+    font-weight:lighter;
+    color: #8f9ca7;
+    margin-bottom: 0px;
+}
+
+.main-area{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 40%;
+}
+
+small{
+    margin-bottom: 15px;
+    color: #8f9ca7;
 }
 
 

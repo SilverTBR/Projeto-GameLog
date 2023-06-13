@@ -1,0 +1,42 @@
+.main-area{
+    width: 50%;
+    margin-top: 20px;
+}
+
+.secao-titulo{
+    margin-bottom: 20px;
+}
+
+input{
+    width: 49%;
+    margin-bottom: 15px;
+}
+
+.disabled-input{
+    background-color: #30394c57;
+    border: 1px solid #30394c57;
+    color: rgba(255, 255, 255, 0.562);
+}
+
+
+.subarea-senhas{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.password-campos{
+    display: flex;
+    flex-direction: column;
+    width: 49%;
+}
+
+button{
+    width: 25%;
+}
+
+.excluir{
+    background-color: #ce2727;
+    border: 1px solid #ce2727;
+}

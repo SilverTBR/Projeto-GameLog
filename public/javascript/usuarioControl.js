@@ -52,7 +52,7 @@ window.onload = () => {
             if (resultado.errors) {
                 definirAviso(resultado);
             } else {
-                window.location.href = "http://localhost:3000/main?token=" + encodeURIComponent(sessionStorage.getItem("token"));
+                window.location.href = "http://localhost:3000/main";
             }
         } else {
             document.getElementById("aviso").style.display = "flex"
@@ -66,7 +66,7 @@ window.onload = () => {
             if (resultado.errors) {
                 definirAviso(resultado)
             } else {
-                window.location.href = "http://localhost:3000/main?token=" + encodeURIComponent(sessionStorage.getItem("token"));
+                window.location.href = "http://localhost:3000/main";
             }
         } else {
             document.getElementById("aviso").style.display = "flex"

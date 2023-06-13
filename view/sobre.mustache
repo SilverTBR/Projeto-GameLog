@@ -13,14 +13,21 @@
 <body>
 
     <header>
+        {{#token}}
+        <a class="header-logo" href="/main">
+            <img src="img/logo.png" class="logo">
+            <span class="header-title">GameLog</span>
+        </a>
+        {{/token}}
+        {{^token}}
         <a class="header-logo" href="/">
             <img src="img/logo.png" class="logo">
             <span class="header-title">GameLog</span>
         </a>
+        {{/token}}
     </header>
 
     <main>
-
         <div class="main-conteudo">
             <h1 class="secao-titulo">Sobre GameLog</h1>
             <hr style="width: 100%;">
@@ -105,7 +112,7 @@
                 <li><a href="/sobre#desenvolvedor">Desenvolvedores</a></li>
                 <li><a href="/sobre#contato">Contato</a></li>
             </ul>
-            <span class="footer-infos">© GameLog 2023 • v0.01.0</span>
+            <span class="footer-infos">© GameLog 2023 • v0.10.0</span>
         </div>
     </footer>
 

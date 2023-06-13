@@ -1,10 +1,3 @@
-.cadastrar-area{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 40%;
-}
-
 h1{
     font-weight:lighter;
     color: #8f9ca7;

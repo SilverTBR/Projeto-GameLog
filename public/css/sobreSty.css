@@ -14,13 +14,6 @@
     width: 100%;
 }
 
-.secao-titulo{
-    align-self: flex-start;
-    font-weight:lighter;
-    color: #8f9ca7;
-    margin-bottom: 0px;
-}
-
 p{
     color: #badefc;
     line-height: 1.2;
@@ -65,10 +58,6 @@ p{
 input{
     width: 40%;
     margin-bottom: 20px;
-}
-
-label{
-    color: white;
 }
 
 textarea{

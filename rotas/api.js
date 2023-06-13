@@ -1,31 +1,36 @@
 const express = require("express")
-const mailer = require("../nodeMailer/mailer")
 const usuario = require("../models/usuario")
 var rotaAPI = express.Router();
 
-rotaAPI.post("/mailer", async (req, res) => {
-    let {email, nome, mensagem, assunto} = req.body
-    let resultado = await mailer.enviarEmail(email, nome, mensagem, assunto)
+rotaAPI.put("/:id", async (req, res) => {
+    let {id} = req.params
+    let {nome, senha} = req.body
+    let dados = {nome, senha}
+    let concluido = await usuario.update(id, dados)
+    if(concluido){
+        let resultado = await usuario.buscarPorPk(id)
+        if(!resultado.errors){
+            req.session.token = resultado
+        }
+        res.json(resultado)
+    }else{
+        resultado = {errors: "Não foi possivel editar"}
+        res.json(resultado)
+    }
+})
+
+rotaAPI.delete("/:id", async (req, res) => {
+    let {id} = req.params
+    let resultado = await usuario.deletar(id)
+    if(resultado.errors){
+        res.json(resultado)
+    }
+    if(resultado){
+        req.session.destroy();
+    }
     res.json(resultado)
 })
 
-rotaAPI.post("/cadastrar", async (req, res) => {
-    let {nome ,email, senha} = req.body
-    let resultado = await usuario.cadastrar(nome, email, senha);
-    if(!resultado.errors){
-        console.log("Sem erro")
-    }
-    res.json(resultado)
-    
-})
 
-rotaAPI.post("/logar", async (req, res) => {
-    let {email, senha} = req.body
-    let resultado = await usuario.logar(email, senha);
-    if(!resultado.errors){
-        console.log("Sem erro")
-    }
-    res.json(resultado)
-})
 
 module.exports = rotaAPI;

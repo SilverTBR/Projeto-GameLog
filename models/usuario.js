@@ -53,5 +53,48 @@ module.exports = {
         }catch(error){
             return error
         }
+    },
+
+    update: async function (id, dados) {
+        try{
+            let numRowsAffected = await usuarioModel.update({nome: dados.nome, senha: dados.senha}, {where: {id: id}})
+            if(numRowsAffected[0]>0){
+                return true
+            }else{
+                return false;
+            }
+        } catch(error) {
+            return error
+        }
+    },
+
+    buscarPorPk: async function(id) {
+        try{
+            const resultado = await usuarioModel.findOne({where: {id: id}})
+            if(resultado === null){
+                return {errors: "Resultado não foi obtido"}
+            }
+            const token = jwt.sign({usuario:resultado.dataValues}, process.env.jwtChave, {
+                expiresIn: "1h"
+            })
+            return token
+            }catch(error){
+                return error
+            }
+    },
+
+    deletar: async function(id){
+        try{
+            let qntDeletados = await usuarioModel.destroy({where:{id: id}})
+            if(qntDeletados == 1){
+                return true
+            }else{
+                return {errors: "Não foi possivel deletar"}
+            }
+        }catch(err){
+            return error
+        }
     }
+
+
 }

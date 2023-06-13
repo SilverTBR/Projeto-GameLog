@@ -6,7 +6,7 @@ let usuarioService = {
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({email: email, senha: senha})            
         }
-        let resposta = await fetch("http://localhost:3000/API/logar", data)
+        let resposta = await fetch("http://localhost:3000/acesso/logar", data)
         return await resposta.json()
     },
 
@@ -16,7 +16,7 @@ let usuarioService = {
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({nome: nome, email: email, senha: senha})            
         }
-        let resposta = await fetch("http://localhost:3000/API/cadastrar", data) 
+        let resposta = await fetch("http://localhost:3000/acesso/cadastrar", data) 
         return await resposta.json()
     }
 
