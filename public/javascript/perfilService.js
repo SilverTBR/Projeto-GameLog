@@ -1,21 +1,22 @@
 
 let perfilService = {
-    update: async function(id, nome, senha){
+    update: async function(id, nome, senha, token){
         const data = {
             method: "PUT",
-            headers: {'Content-type': 'application/json'},
+            headers: {'Content-type': 'application/json',
+            "Authorization": "Bearer "+token},
             body: JSON.stringify({nome: nome, senha: senha})            
         }
         let resposta = await fetch("http://localhost:3000/API/"+id, data)
         return await resposta.json()
     },
-    delete: async function(id){
+    delete: async function(id, token){
         const data = {
             method: "DELETE",
-            headers: {'Content-type': 'application/json'}           
+            headers: {'Content-type': 'application/json',
+            "Authorization": "Bearer "+token}         
         }
         let resposta = await fetch("http://localhost:3000/API/"+id, data)
-        console.log(resposta)
         return await resposta.json()
     }
 }

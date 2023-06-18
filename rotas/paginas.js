@@ -6,7 +6,7 @@ inicial.get("/", (req, res) => {
 })
 
 inicial.get("/sobre", (req, res) => {
-    res.render("sobre", req.session)
+    res.render("sobre", {token: req.query.token})
 })
 
 inicial.get("/cadastro", (req, res) => {

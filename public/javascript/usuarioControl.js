@@ -48,11 +48,16 @@ window.onload = () => {
     const cadastrar = async () => {
         if (verificarCamposC() && confirmarSenha()) {
             let resultado = await usuarioService.cadastrar(getNome(), getEmail(), getsenha());
-            sessionStorage.setItem("token", resultado);
             if (resultado.errors) {
                 definirAviso(resultado);
             } else {
-                window.location.href = "http://localhost:3000/main";
+                sessionStorage.setItem("token", resultado);
+                const headers = {
+                    "Authorization": "Bearer "+resultado
+                }
+
+                usuarioService.setHeaders(headers)
+                window.location.href = "http://localhost:3000/main?token="+resultado;
             }
         } else {
             document.getElementById("aviso").style.display = "flex"
@@ -62,11 +67,14 @@ window.onload = () => {
     const logar = async () => {
         if (verificarCamposL()) {
             let resultado = await usuarioService.login(getEmail(), getsenha());
-            sessionStorage.setItem("token", resultado);
             if (resultado.errors) {
                 definirAviso(resultado)
             } else {
-                window.location.href = "http://localhost:3000/main";
+                sessionStorage.setItem("token", resultado);
+                const headers = {
+                    "Authorization": "Bearer "+resultado
+                }
+                window.location.href = "http://localhost:3000/main?token="+resultado;
             }
         } else {
             document.getElementById("aviso").style.display = "flex"

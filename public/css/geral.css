@@ -155,7 +155,20 @@ button:hover{
     align-self: flex-start;
     font-weight:lighter;
     color: #8f9ca7;
-    margin-bottom: 0px;
+    margin-bottom: 20px;
+}
+
+.subarea{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.inner-subarea{
+    display: flex;
+    flex-direction: column;
+    width: 49%;
 }
 
 .main-area{

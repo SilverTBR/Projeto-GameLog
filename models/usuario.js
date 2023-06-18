@@ -23,6 +23,7 @@ usuarioModel.sync({force: false})
 
 
 module.exports = {
+    usuarioModel,
     cadastrar: async function (nome, email, senha) {
         try{
         const resultado = await usuarioModel.create({
@@ -91,8 +92,8 @@ module.exports = {
             }else{
                 return {errors: "Não foi possivel deletar"}
             }
-        }catch(err){
-            return error
+        }catch(error){
+            return { errors: error.message };
         }
     }
 

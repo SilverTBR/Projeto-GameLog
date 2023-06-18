@@ -1,10 +1,6 @@
 import perfilService from "./perfilService.js"
-
+let alterouSenha = false;
 window.onload = () => {
-
-    const getEmail = () => {
-        return document.getElementById("email").value
-    }
 
     const getNome = () => {
         return document.getElementById("nome").value
@@ -15,7 +11,10 @@ window.onload = () => {
     }
 
     const getcSenha = () => {
-        return document.getElementById("cSenha").value
+        if(alterouSenha){
+            return document.getElementById("cSenha").value
+        }
+        return document.getElementById("senha").value
     }
 
     const getID = () => {
@@ -45,12 +44,12 @@ window.onload = () => {
 
     const chamarUpdate = async () => {
         if (validarCampos() && validarSenha()) {
-            let resultado = await perfilService.update(getID(), getNome(), getSenha());
+            let resultado = await perfilService.update(getID(), getNome(), getSenha(), sessionStorage.getItem("token"));
             if (resultado.errors) {
                 definirAviso(resultado)
             } else {
                 sessionStorage.setItem("token", resultado);
-                window.location.href = "http://localhost:3000/main/perfil";
+                window.location.href = "http://localhost:3000/main/perfil?token="+resultado;
             }
         } else {
             document.getElementById("aviso").style.display = "flex"
@@ -58,13 +57,11 @@ window.onload = () => {
     }
 
     const chamarDelete = async () => {
-        let resultado = await perfilService.delete(getID());
+        let resultado = await perfilService.delete(getID(), sessionStorage.getItem("token"));
         if (!resultado.erros) {
             if (resultado) {
                 window.location.href = "http://localhost:3000/"
-            } else {
-                document.getElementById("aviso").style.display = "flex"
-            }
+            } 
         }else{
             definirAviso(resultado)
         }
@@ -72,6 +69,7 @@ window.onload = () => {
     }
 
     const habilitarSenha = () => {
+        alterouSenha = true;
         const cSenha = document.getElementById("cSenha")
         cSenha.removeAttribute("disabled")
         cSenha.classList.remove("disabled-input")

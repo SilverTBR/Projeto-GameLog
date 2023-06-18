@@ -1,5 +1,6 @@
 const express = require("express")
 const usuario = require("../models/usuario")
+const jogos = require("../models/jogo")
 var rotaAPI = express.Router();
 
 rotaAPI.put("/:id", async (req, res) => {
@@ -23,10 +24,28 @@ rotaAPI.delete("/:id", async (req, res) => {
     let {id} = req.params
     let resultado = await usuario.deletar(id)
     if(resultado.errors){
-        res.json(resultado)
+        console.log(resultado)
+        req.session.destroy();
+        res.render("/?error=SemPermissao")
     }
     if(resultado){
         req.session.destroy();
+    }
+    res.json(resultado)
+})
+
+rotaAPI.post("/jogo/:id", async (req, res) => {
+    let {id} = req.params
+    let resultado = await jogos.cadastrar(req.body, id)
+    res.json(resultado)
+})
+
+rotaAPI.get("/:id", async (req, res)=> {
+    let {id} = req.params
+    let resultado = await jogos.buscarPorUser(id)
+    console.log(resultado)
+    if(resultado == null){
+        res.render("/?error=SemPermissao")
     }
     res.json(resultado)
 })

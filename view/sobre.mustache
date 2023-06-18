@@ -14,7 +14,7 @@
 
     <header>
         {{#token}}
-        <a class="header-logo" href="/main">
+        <a class="header-logo" href="/main?token={{token}}">
             <img src="img/logo.png" class="logo">
             <span class="header-title">GameLog</span>
         </a>
@@ -107,10 +107,10 @@
     <footer>
         <div class="footer-left">
             <ul class="footer-links">
-                <li><a href="/sobre">Sobre</a></li>
-                <li><a href="/sobre#tecnologias">Tecnologias</a></li>
-                <li><a href="/sobre#desenvolvedor">Desenvolvedores</a></li>
-                <li><a href="/sobre#contato">Contato</a></li>
+                <li><a href="/sobre?token={{token}}">Sobre</a></li>
+                <li><a href="/sobre?token={{token}}#tecnologias">Tecnologias</a></li>
+                <li><a href="/sobre?token={{token}}#desenvolvedor">Desenvolvedores</a></li>
+                <li><a href="/sobre?token={{token}}#contato">Contato</a></li>
             </ul>
             <span class="footer-infos">© GameLog 2023 • v0.10.0</span>
         </div>
