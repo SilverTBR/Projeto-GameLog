@@ -11,7 +11,15 @@ main.get("/perfil", (req, res) => {
 })
 
 main.get("/jogos", (req, res) => {
-    res.render("jogos", {usuario: req.usuario, jogo: JSON.parse(req.query.jogo), token: req.query.token})
+    let jogo = null
+    if(req.query.jogo){
+        jogo = JSON.parse(req.query.jogo) 
+    }
+    res.render("jogos", {usuario: req.usuario, jogo: jogo, token: req.query.token})
+})
+
+main.get("/analise", (req, res) => {
+    res.render("analise", {usuario: req.usuario, token: req.query.token})
 })
 
 

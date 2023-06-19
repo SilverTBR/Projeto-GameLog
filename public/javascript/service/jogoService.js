@@ -17,6 +17,27 @@ let jogoService = {
         }
         let resposta = await fetch("http://localhost:3000/API/"+id, data)
         return await resposta.json()
-    }
+    },
+
+    editar: async function(id, nome, desenvolvedora, distribuidora, genero, subgenero, token){
+        const data = {
+            method: "PUT",
+            headers: {'Content-type': 'application/json',
+            "Authorization": "Bearer "+token},
+            body: JSON.stringify({nome: nome, desenvolvedora: desenvolvedora, distribuidora: distribuidora, genero: genero, subgenero: subgenero})            
+        }
+        let resposta = await fetch("http://localhost:3000/API/jogo/"+id, data)
+        return await resposta.json()
+    },
+
+    deletar: async function(id, token){
+        const data = {
+            method: "DELETE",
+            headers: {'Content-type': 'application/json',
+            "Authorization": "Bearer "+token},
+        }
+        let resposta = await fetch("http://localhost:3000/API/jogo/"+id, data)
+        return await resposta.json()
+    },
 }
 export default jogoService

@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>GameLog - Main</title>
+    <title>GameLog - Analise</title>
     <link rel="icon" href="/img/logo.png" type="image/x-icon">
     <link href="/css/geral.css" rel="stylesheet">
-    <link href="/css/mainSty.css" rel="stylesheet">
+    <link href="/css/analiseSty.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/bdedc57966.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto">
 </head>
@@ -17,16 +17,22 @@
             <img src="/img/logo.png" class="logo">
             <span class="header-title">GameLog</span>
         </a>
-            <ul class="header-right">
-                <li><a href="/main/perfil?token={{token}}" id="perfil"><i class="fa-solid fa-user" style="margin-right: 5px;"></i>{{usuario.nome}}</a></li>
-                <li><a href="/main/jogos?token={{token}}" id="jogos"><i class="fa-solid fa-plus" style="margin-right: 5px;"></i>Adicionar jogo</a></li>
-                <li><a class="sair" href="/" id="jogos"><i class="fa-solid fa-right-from-bracket"></i>Sair</a></li>            
-            </ul>
+        <ul class="header-right">
+            <li><a href="/main/perfil?token={{token}}" id="perfil"><i class="fa-solid fa-user" style="margin-right: 5px;"></i>{{usuario.nome}}</a></li>
+            <li><a href="/main/jogos?token={{token}}" id="jogos"><i class="fa-solid fa-plus" style="margin-right: 5px;"></i>Adicionar jogo</a></li>
+            <li><a href="/main/analise?token={{token}}" id="jogos"><i class="fa-solid fa-pen" style="margin-right: 5px;"></i>Adcionar analise</a></li>            
+            <li><a class="sair" href="/" id="jogos"><i class="fa-solid fa-right-from-bracket"></i>Sair</a></li>            
+        </ul>
 
     </header>
     <main>
-        <div id="grid" class="main-grid">
-
+        <div class="main-area">
+            <h1 class="secao-titulo">Analise</h1>
+            <textarea rows="1" id="mensagem"></textarea>
+            <select id="jogos" class="select">
+                <option value="" selected hidden>Selecione um jogo</option>
+                <option>Teste</option>
+            </select>
         </div>
     </main>
     <input id="id" style="display: none;" value="{{usuario.id}}"/>

@@ -1,4 +1,4 @@
-import usuarioService from "./usuarioService.js";
+import usuarioService from "../service/usuarioService.js";
 
 window.onload = () => {
     const getNome = () => {
@@ -52,11 +52,6 @@ window.onload = () => {
                 definirAviso(resultado);
             } else {
                 sessionStorage.setItem("token", resultado);
-                const headers = {
-                    "Authorization": "Bearer "+resultado
-                }
-
-                usuarioService.setHeaders(headers)
                 window.location.href = "http://localhost:3000/main?token="+resultado;
             }
         } else {
@@ -71,9 +66,6 @@ window.onload = () => {
                 definirAviso(resultado)
             } else {
                 sessionStorage.setItem("token", resultado);
-                const headers = {
-                    "Authorization": "Bearer "+resultado
-                }
                 window.location.href = "http://localhost:3000/main?token="+resultado;
             }
         } else {

@@ -1,4 +1,4 @@
-import jogoService from "./jogoService.js"
+import jogoService from "../service/jogoService.js"
 
 let token = sessionStorage.getItem("token")
 
@@ -45,7 +45,6 @@ window.onload = () => {
 
     const carregarCards = (jogos) => {
         mainGrid.innerHTML = ""
-        console.log(jogos)
         jogos.forEach((jogo) => {
             mainGrid.appendChild(gerarCard(jogo))
         })
@@ -56,7 +55,6 @@ window.onload = () => {
     } 
 
     const gerarJogos = async () => {
-        console.log(sessionStorage.getItem("token"))
         listaJogos = await jogoService.buscaPorUser(getID(), sessionStorage.getItem("token"))
         carregarCards(listaJogos)
     }    

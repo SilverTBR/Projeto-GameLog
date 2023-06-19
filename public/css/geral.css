@@ -183,4 +183,21 @@ small{
     color: #8f9ca7;
 }
 
+.sair{
+    color: #fd4c6a;
+}
+
+textarea{
+    background-color: #30394c;
+    border-radius: 4px;
+    border: 1px solid #30394c;
+    width: 40%;
+    resize: none;
+    height: 150px;
+    color: #fff;
+    font-size: 16px;
+    font-family: inherit;
+    margin-bottom: 20px;
+}
+
 

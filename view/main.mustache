@@ -17,10 +17,12 @@
             <img src="/img/logo.png" class="logo">
             <span class="header-title">GameLog</span>
         </a>
-            <ul class="header-right">
-                <li><a href="/main/perfil?token={{token}}" id="perfil"><i class="fa-solid fa-user" style="margin-right: 5px;"></i>{{usuario.nome}}</a></li>
-                <li><a href="/main/jogos?token={{token}}" id="jogos"><i class="fa-solid fa-plus" style="margin-right: 5px;"></i>Adicionar jogo</a></li>
-            </ul>
+        <ul class="header-right">
+            <li><a href="/main/perfil?token={{token}}" id="perfil"><i class="fa-solid fa-user" style="margin-right: 5px;"></i>{{usuario.nome}}</a></li>
+            <li><a href="/main/jogos?token={{token}}" id="jogos"><i class="fa-solid fa-plus" style="margin-right: 5px;"></i>Adicionar jogo</a></li>
+            <li><a href="/main/analise?token={{token}}" id="jogos"><i class="fa-solid fa-pen" style="margin-right: 5px;"></i>Adcionar analise</a></li>            
+            <li><a class="sair" href="/" id="jogos"><i class="fa-solid fa-right-from-bracket"></i>Sair</a></li>            
+        </ul>
 
     </header>
     <main>
@@ -41,6 +43,6 @@
         </div>
     </footer>
 </body>
-<script src="/javascript/mainControl.js" type="module"></script>
+<script src="/javascript/control/mainControl.js" type="module"></script>
 
 </html>

@@ -13,9 +13,6 @@ rotaAPI.post("/mailer", async (req, res) => {
 rotaAPI.post("/cadastrar", async (req, res) => {
     let {nome ,email, senha} = req.body
     let resultado = await usuario.cadastrar(nome, email, senha);
-    // if(!resultado.errors){
-    //     req.session.token = resultado
-    // }
     res.json(resultado)
     
 })
@@ -23,9 +20,6 @@ rotaAPI.post("/cadastrar", async (req, res) => {
 rotaAPI.post("/logar", async (req, res) => {
     let {email, senha} = req.body
     let resultado = await usuario.logar(email, senha);
-    // if(!resultado.errors){
-    //     req.session.token = resultado
-    // }
     res.json(resultado)
 })
 

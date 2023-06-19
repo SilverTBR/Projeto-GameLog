@@ -1,4 +1,4 @@
-import jogoService from "./jogoService.js"
+import jogoService from "../service/jogoService.js"
 
 window.onload = () => {
     const getNome = () => {
@@ -26,7 +26,7 @@ window.onload = () => {
     }
 
     const verificarCampos = () => {
-        if(getNome() != "" && getGenero() != "" && getSubgenero() != "" && getDesenvolvedora() != "" && getDistribuidora != ""){
+        if(getNome() != "" && getGenero() != "" && getSubgenero() != "" && getDesenvolvedora() != "" && getDistribuidora() != ""){
             return true
        }
        return false;
@@ -42,11 +42,11 @@ window.onload = () => {
         document.getElementById("aviso").style.display = "none"
     }
 
+
     const chamarCadastro = async () => {
         if(verificarCampos()){
             let resultado = await jogoService.cadastrar(getID(), getNome(), getDesenvolvedora(), getDistribuidora(), getGenero(), getSubgenero(), sessionStorage.getItem("token"));
-            console.log(resultado)
-            if(resultado){
+            if(!resultado.errors){
                 buttonSucesso()
             }else{
                 document.getElementById("aviso").style.display = "flex"
@@ -55,6 +55,8 @@ window.onload = () => {
             document.getElementById("aviso").style.display = "flex"
         }
     }
+
+
 
     document.getElementById("cadastrar").addEventListener("click", chamarCadastro)
 

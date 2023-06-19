@@ -1,4 +1,4 @@
-import perfilService from "./perfilService.js"
+import perfilService from "../service/perfilService.js"
 let alterouSenha = false;
 window.onload = () => {
 
@@ -39,6 +39,9 @@ window.onload = () => {
         if (error.errors == "0editar") {
             document.getElementById("aviso-text").innerHTML = "Não foi possivel editar!"
         }
+        else if(error.errors == "ImpossivelEditar"){
+            document.getElementById("aviso-text").innerHTML = "Impossivel editar usuario!"
+        }
         document.getElementById("aviso").style.display = "flex"
     }
 
@@ -60,6 +63,7 @@ window.onload = () => {
         let resultado = await perfilService.delete(getID(), sessionStorage.getItem("token"));
         if (!resultado.erros) {
             if (resultado) {
+                sessionStorage.clear()
                 window.location.href = "http://localhost:3000/"
             } 
         }else{

@@ -1,4 +1,4 @@
-import emailService from "./emailService.js"
+import emailService from "../service/emailService.js"
 
 window.onload = () => {
     const getEmail = () => {

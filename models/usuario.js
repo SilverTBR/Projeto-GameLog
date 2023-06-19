@@ -36,6 +36,7 @@ module.exports = {
         })
         return token
         }catch(error){
+            console.error(error)
             return error
         }
     },
@@ -43,7 +44,6 @@ module.exports = {
     logar: async function(email, senha){
         try{
         const resultado = await usuarioModel.findOne({where: {email: email, senha: senha}})
-        //console.log(resultado.dataValues)
         if(resultado === null){
             return {errors: "Resultado não foi obtido"}
         }
@@ -52,6 +52,7 @@ module.exports = {
         })
         return token
         }catch(error){
+            console.error(error)
             return error
         }
     },
@@ -62,9 +63,10 @@ module.exports = {
             if(numRowsAffected[0]>0){
                 return true
             }else{
-                return false;
+                return {errors: "ImpossivelEditar"}
             }
         } catch(error) {
+            console.error(error)
             return error
         }
     },
@@ -73,13 +75,14 @@ module.exports = {
         try{
             const resultado = await usuarioModel.findOne({where: {id: id}})
             if(resultado === null){
-                return {errors: "Resultado não foi obtido"}
+                return {errors: "Resultado não foi obtido pela chave primaria"}
             }
             const token = jwt.sign({usuario:resultado.dataValues}, process.env.jwtChave, {
                 expiresIn: "1h"
             })
             return token
             }catch(error){
+                console.error(error)
                 return error
             }
     },
@@ -90,10 +93,11 @@ module.exports = {
             if(qntDeletados == 1){
                 return true
             }else{
-                return {errors: "Não foi possivel deletar"}
+                return {errors: "Não foi possivel deletar o usuario"}
             }
         }catch(error){
-            return { errors: error.message };
+            console.error(error)
+            return error
         }
     }
 

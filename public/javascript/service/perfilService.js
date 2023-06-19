@@ -16,7 +16,14 @@ let perfilService = {
             headers: {'Content-type': 'application/json',
             "Authorization": "Bearer "+token}         
         }
-        let resposta = await fetch("http://localhost:3000/API/"+id, data)
+        let resposta = await fetch("http://localhost:3000/API/jogo/all/"+id, data)
+        if(!resposta.errors){
+            resposta = await fetch("http://localhost:3000/API/"+id, data)
+            if(resposta.errors){
+                //pesquisar sobre rollback e commit com sequelize
+                console.log("Não foi possivel excluir usuario")
+            }
+        }
         return await resposta.json()
     }
 }

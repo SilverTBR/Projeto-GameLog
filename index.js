@@ -28,7 +28,7 @@ app.use(session({
 
 
 let controlaAcesso = function (req, res, next) {
-    let token
+    let token = null
     if(req.query.token){
       token = req.query.token
     }else{

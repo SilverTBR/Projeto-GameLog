@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize")
 
-const sequelize = new Sequelize("web2","root","1234", {host: "localhost", dialect: "mysql"})
+const sequelize = new Sequelize(process.env.server,process.env.user,process.env.senha, {host: "localhost", dialect: "mysql"})
 
 sequelize.authenticate()
     .then(() => console.log("Conectado ao MySQL"))
