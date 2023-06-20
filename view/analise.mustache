@@ -27,15 +27,28 @@
     </header>
     <main>
         <div class="main-area">
+            <div class="aviso" id="aviso">
+                <p class="aviso-text" id="aviso-text">Dados da analise estão invalidos!</p>
+            </div>
             <h1 class="secao-titulo">Analise</h1>
-            <textarea rows="1" id="mensagem"></textarea>
-            <select id="jogos" class="select">
-                <option value="" selected hidden>Selecione um jogo</option>
-                <option>Teste</option>
-            </select>
+            <textarea rows="1" id="analise">{{analise.texto}}</textarea>
+            <div class="subarea">
+                {{^analise}}
+                <select id="dropMenu" class="select">
+                    <option value="" selected hidden>Selecione um jogo</option>
+                </select> 
+                {{/analise}}
+                {{#analise}}
+                <button id="excluir">Excluir</button>
+                {{/analise}}
+
+                <button id="salvar">Salvar</button>
+
+            </div>
+
         </div>
     </main>
-    <input id="id" style="display: none;" value="{{usuario.id}}"/>
+    <input id="id" style="display: none;" value="{{^analise}}{{usuario.id}}{{/analise}}{{analise.id}}"/>
     <footer>
         <div class="footer-left">
             <ul class="footer-links">
@@ -48,6 +61,11 @@
         </div>
     </footer>
 </body>
-<script src="/javascript/control/mainControl.js" type="module"></script>
+{{^analise}}
+<script src="/javascript/control/analiseControl.js" type="module"></script>
+{{/analise}}
+{{#analise}}
+<script src="/javascript/control/editarAnaliseControl.js" type="module"></script>
 
+{{/analise}}
 </html>

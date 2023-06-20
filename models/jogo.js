@@ -1,6 +1,5 @@
 const {Sequelize ,DataTypes} = require("sequelize")
 const sequelize = require("../BD/mysql")
-const jwt = require("jsonwebtoken");
 const { usuarioModel } = require("./usuario");
 
 const jogoModel = sequelize.define("Jogo", {
@@ -24,8 +23,8 @@ const jogoModel = sequelize.define("Jogo", {
         type: DataTypes.STRING,
         allowNull: false
     },
-    situacao: {
-        type: DataTypes.SMALLINT,
+    idUsuario: {
+        type: DataTypes.INTEGER,
         allowNull: false
     }
 })
@@ -44,8 +43,7 @@ module.exports = {
                 desenvolvedora: dados.desenvolvedora,
                 distribuidora: dados.distribuidora,
                 genero: dados.genero,
-                subgenero: dados.subgenero,
-                situacao: 1
+                subgenero: dados.subgenero
             })
             if(resultado){
                 return true

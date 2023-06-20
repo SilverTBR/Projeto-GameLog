@@ -19,7 +19,11 @@ main.get("/jogos", (req, res) => {
 })
 
 main.get("/analise", (req, res) => {
-    res.render("analise", {usuario: req.usuario, token: req.query.token})
+    let analise = null
+    if(req.query.analise){
+        analise = JSON.parse(req.query.analise)
+    }
+    res.render("analise", {usuario: req.usuario, token: req.query.token, analise: analise})
 })
 
 

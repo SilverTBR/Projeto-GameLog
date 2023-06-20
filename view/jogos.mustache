@@ -65,7 +65,6 @@
                 <button id="editar">Editar</button>
                 <button id="salvar" style="display: none;">Salvar</button>
                 <button id="excluir" class="excluir" style="display: none;">Excluir</button>
-                <button id="addAnalise">Adicionar analise</button>
                 {{/jogo}}
                 {{^jogo}}
                 <button id="cadastrar">Cadastrar</button>
@@ -73,6 +72,11 @@
             </div>
             {{#jogo}}
             <button id="cancelar" style="margin-top: 10px; display: none" >Cancelar</button>
+
+            <h1 class="secao-titulo">Analises</h1>
+            <div id="grid" class="main-grid">
+
+            </div> 
             {{/jogo}}
         </div>
     </main>
@@ -89,7 +93,7 @@
     </footer>
 </body>
     {{#jogo}}
-    <script src="/javascript/control/jogandoControl.js" type="module"></script>
+    <script src="/javascript/control/editarJogoControl.js" type="module"></script>
     {{/jogo}}
     {{^jogo}}
     <script src="/javascript/control/jogoControl.js" type="module"></script>

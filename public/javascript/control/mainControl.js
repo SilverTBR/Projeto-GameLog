@@ -1,13 +1,14 @@
 import jogoService from "../service/jogoService.js"
 
-let token = sessionStorage.getItem("token")
-
-
 window.onload = () => {
     let listaJogos = [];
     //document.getElementById("perfil").href = "/main/perfil?token="+token
     //document.getElementById("jogos").href = "/main/jogos?token="+token
     const mainGrid = document.getElementById("grid");
+
+    const getID = () => {
+        return document.getElementById("id").value
+    }
 
     const gerarCard = (jogo) => {
         const card = document.createElement("article")
@@ -48,10 +49,6 @@ window.onload = () => {
         jogos.forEach((jogo) => {
             mainGrid.appendChild(gerarCard(jogo))
         })
-    }
-
-    const getID = () => {
-        return document.getElementById("id").value
     } 
 
     const gerarJogos = async () => {
