@@ -1,6 +1,12 @@
 import jogoService from "../service/jogoService.js"
 
 window.onload = () => {
+    if(!sessionStorage.getItem("token")){
+        window.location.href = "/?error=SemPermissao";
+    }
+    let usuario = JSON.parse(sessionStorage.getItem("usuario"));
+    document.getElementById("perfil").innerHTML += usuario.nome
+
     const getNome = () => {
         return document.getElementById("nome").value
     }
@@ -21,33 +27,18 @@ window.onload = () => {
         return document.getElementById("distribuidora").value
     }
 
-    const getID = () => {
-        return document.getElementById("id").value
-    }
-
     const verificarCampos = () => {
         if(getNome() != "" && getGenero() != "" && getSubgenero() != "" && getDesenvolvedora() != "" && getDistribuidora() != ""){
             return true
        }
        return false;
     }
-
-    const buttonSucesso = () => {
-        document.getElementById("cadastrar").style.backgroundColor = "#d4edda"
-        document.getElementById("cadastrar").style.borderColor = "#c3e6cb"
-        document.getElementById("cadastrar").style.color = "#155724"
-        document.getElementById("cadastrar").style.cursor = "default"
-        document.getElementById("cadastrar").innerHTML = '<i class="fa-solid fa-check"></i>' 
-        document.getElementById("cadastrar").disabled = true;
-        document.getElementById("aviso").style.display = "none"
-    }
-
-
+    
     const chamarCadastro = async () => {
         if(verificarCampos()){
-            let resultado = await jogoService.cadastrar(getID(), getNome(), getDesenvolvedora(), getDistribuidora(), getGenero(), getSubgenero(), sessionStorage.getItem("token"));
+            let resultado = await jogoService.cadastrar(usuario.id, getNome(), getDesenvolvedora(), getDistribuidora(), getGenero(), getSubgenero(), sessionStorage.getItem("token"));
             if(!resultado.errors){
-                buttonSucesso()
+                window.location.href = "/main";
             }else{
                 document.getElementById("aviso").style.display = "flex"
             }

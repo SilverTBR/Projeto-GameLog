@@ -3,6 +3,11 @@ import analiseService from "../service/analiseService.js"
 
 
 window.onload = () => {
+    if(!sessionStorage.getItem("token")){
+        window.location.href = "/?error=SemPermissao";
+    }
+    let usuario = JSON.parse(sessionStorage.getItem("usuario"));
+    document.getElementById("perfil").innerHTML += usuario.nome
 
     const mainGrid = document.getElementById("grid");
     const camposInput = document.querySelectorAll('.disabled-input');
@@ -77,7 +82,7 @@ window.onload = () => {
         if (verificarCampos()) {
             let resultado = await jogoService.editar(getID(), getNome(), getDesenvolvedora(), getDistribuidora(), getGenero(), getSubgenero(), sessionStorage.getItem("token"));
             if (!resultado.errors) {
-                window.location.href = "/main?token=" + sessionStorage.getItem("token")
+                window.location.href = "/main"
             } else {
                 document.getElementById("aviso").style.display = "flex"
             }
@@ -89,7 +94,7 @@ window.onload = () => {
     const chamarDel = async () => {
         let resultado = await jogoService.deletar(getID(), sessionStorage.getItem("token"))
         if (!resultado.errors) {
-            window.location.href = "/main?token=" + sessionStorage.getItem("token")
+            window.location.href = "/main"
         } else {
             //Fiz dessa forma pois o erro que poderia dar é id invalida ou algo desse tipo e se tal erro ocorrer num é para estar ali, pelo menos acho
             sessionStorage.clear()
@@ -115,7 +120,7 @@ window.onload = () => {
         card.append(textoLimitado);
 
         card.addEventListener("click", () => {
-            window.location.href = "/main/analise?token=" + sessionStorage.getItem("token") + "&analise=" + JSON.stringify(analise)
+            window.location.href = "/main/analise?analise=" + JSON.stringify(analise)
         })
 
         return card

@@ -34,7 +34,7 @@ module.exports = {
         const token = jwt.sign({usuario:resultado.dataValues}, process.env.jwtChave, {
             expiresIn: "1h"
         })
-        return token
+        return {token: token, usuario: resultado.dataValues}
         }catch(error){
             console.error(error)
             return error
@@ -50,7 +50,7 @@ module.exports = {
         const token = jwt.sign({usuario:resultado.dataValues}, process.env.jwtChave, {
             expiresIn: "1h"
         })
-        return token
+        return {token: token, usuario: resultado.dataValues}
         }catch(error){
             console.error(error)
             return error
@@ -80,7 +80,7 @@ module.exports = {
             const token = jwt.sign({usuario:resultado.dataValues}, process.env.jwtChave, {
                 expiresIn: "1h"
             })
-            return token
+            return {token: token, usuario: resultado.dataValues}
             }catch(error){
                 console.error(error)
                 return error

@@ -4,6 +4,10 @@ const { jogoModel } = require("./jogo");
 const { usuarioModel } = require("./usuario")
 
 const analiseModel = sequelize.define("Analise", {
+    idUsuario: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
     idJogo: {
         type: DataTypes.INTEGER,
         allowNull: false
@@ -14,15 +18,17 @@ const analiseModel = sequelize.define("Analise", {
     }
 })
 
+analiseModel.belongsTo(usuarioModel, {foreignKey: "idUsuario"});
 analiseModel.belongsTo(jogoModel, {foreignKey: "idJogo"});
 
 analiseModel.sync({force: false})
 
 module.exports = {
-    cadastrar: async function (id, texto){
+    cadastrar: async function (id, idUsuario, texto){
         try{
             const resultado = await analiseModel.create({
                 idJogo: id,
+                idUsuario: idUsuario,
                 texto: texto
             })
             console.log(resultado)
@@ -70,10 +76,9 @@ module.exports = {
         }
     },
 
-    //depois ver sobre uma forma de evitar com que ao colocar um id não cadastrado ele mesmo assim funciona 
     deletarTodos: async function(idUsuario){
         try{
-            let qntDeletados = await jogoModel.destroy({where:{idUsuario: idUsuario}})
+            let qntDeletados = await analiseModel.destroy({where:{idUsuario: idUsuario}})
             if(qntDeletados >= 0){
                 return true
             }else{

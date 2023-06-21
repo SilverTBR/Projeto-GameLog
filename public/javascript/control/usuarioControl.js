@@ -1,6 +1,8 @@
 import usuarioService from "../service/usuarioService.js";
 
 window.onload = () => {
+    sessionStorage.clear();
+
     const getNome = () => {
         return document.getElementById("nome").value
     }
@@ -51,8 +53,9 @@ window.onload = () => {
             if (resultado.errors) {
                 definirAviso(resultado);
             } else {
-                sessionStorage.setItem("token", resultado);
-                window.location.href = "http://localhost:3000/main?token="+resultado;
+                sessionStorage.setItem("token", resultado.token);
+                sessionStorage.setItem("usuario", JSON.stringify(resultado.usuario))
+                window.location.href = "http://localhost:3000/main";
             }
         } else {
             document.getElementById("aviso").style.display = "flex"
@@ -65,8 +68,9 @@ window.onload = () => {
             if (resultado.errors) {
                 definirAviso(resultado)
             } else {
-                sessionStorage.setItem("token", resultado);
-                window.location.href = "http://localhost:3000/main?token="+resultado;
+                sessionStorage.setItem("token", resultado.token);
+                sessionStorage.setItem("usuario", JSON.stringify(resultado.usuario))
+                window.location.href = "http://localhost:3000/main";
             }
         } else {
             document.getElementById("aviso").style.display = "flex"

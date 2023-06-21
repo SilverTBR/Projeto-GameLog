@@ -1,6 +1,10 @@
 import emailService from "../service/emailService.js"
 
 window.onload = () => {
+    if(sessionStorage.getItem("token")){
+        document.getElementsByClassName("header-logo")[0].href = "/main"
+    }
+
     const getEmail = () => {
         return document.getElementById("email").value
     }

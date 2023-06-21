@@ -22,7 +22,9 @@ let perfilService = {
             if(resposta.errors){
                 //pesquisar sobre rollback e commit com sequelize
                 console.log("Não foi possivel excluir usuario")
-            }
+            }   
+        }else{
+            console.log("Não foi possivel excluir jogos")
         }
         return await resposta.json()
     }

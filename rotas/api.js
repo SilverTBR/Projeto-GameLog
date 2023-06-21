@@ -13,9 +13,6 @@ rotaAPI.put("/:id", async (req, res) => {
     let concluido = await usuario.update(id, dados)
     if (!concluido.errors) {
         let resultado = await usuario.buscarPorPk(id)
-        if (!resultado.errors) {
-            req.session.token = resultado
-        }
         res.json(resultado)
     } else {
         res.json(concluido)
@@ -83,7 +80,7 @@ rotaAPI.put("/jogo/:id", async (req, res) => {
 //Cadastrar analise
 rotaAPI.post("/analise/:id", async (req, res) => {
     let { id } = req.params
-    let resultado = await analise.cadastrar(id, req.body.texto)
+    let resultado = await analise.cadastrar(id, req.body.idUsuario, req.body.texto)
     res.json(resultado)
 })
 
@@ -101,7 +98,6 @@ rotaAPI.get("/analise/:id", async (req, res) => {
 rotaAPI.delete("/analise/:id", async (req, res) => {
     let { id } = req.params
     let resultado = await analise.deletar(id)
-    console.log(resultado)
     res.json(resultado)
 
 })
@@ -117,6 +113,14 @@ rotaAPI.put("/analise/:id", async (req, res) => {
         resultado = { errors: "Não foi possivel editar" }
         res.json(resultado)
     }
+})
+
+//Deletar todos as analises pelo id do usuario
+rotaAPI.delete("/analise/all/:id", async (req, res) => {
+    let { id } = req.params
+    let resultado = await jogos.deletarTodos(id)
+    res.json(resultado)
+
 })
 
 

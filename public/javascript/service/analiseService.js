@@ -1,11 +1,11 @@
 let analiseService = {
-    cadastrar: async function(id, texto, token){
+    cadastrar: async function(id, texto, idUsuario, token){
         console.log(texto)
         const data = {
             method: "POST",
             headers: {'Content-type': 'application/json',
             "Authorization": "Bearer "+token},
-            body: JSON.stringify({texto: texto})            
+            body: JSON.stringify({texto: texto, idUsuario: idUsuario})            
         }
         let resposta = await fetch("http://localhost:3000/API/analise/"+id, data)
         return await resposta.json()

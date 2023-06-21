@@ -1,14 +1,14 @@
 import jogoService from "../service/jogoService.js"
 
 window.onload = () => {
-    let listaJogos = [];
-    //document.getElementById("perfil").href = "/main/perfil?token="+token
-    //document.getElementById("jogos").href = "/main/jogos?token="+token
-    const mainGrid = document.getElementById("grid");
-
-    const getID = () => {
-        return document.getElementById("id").value
+    if(!sessionStorage.getItem("token")){
+        window.location.href = "/?error=SemPermissao";
     }
+    let usuario = JSON.parse(sessionStorage.getItem("usuario"));
+    document.getElementById("perfil").innerHTML += usuario.nome
+    
+    let listaJogos = [];
+    const mainGrid = document.getElementById("grid");
 
     const gerarCard = (jogo) => {
         const card = document.createElement("article")
@@ -38,7 +38,7 @@ window.onload = () => {
 
         //incerto se deveria fazer assim passando jogo como query ou qual outra forma seria melhor
         card.addEventListener("click", () => {
-            window.location.href = "/main/jogos?token="+sessionStorage.getItem("token")+ "&jogo="+ JSON.stringify(jogo)
+            window.location.href = "/main/jogos?jogo="+ JSON.stringify(jogo)
         })
 
         return card
@@ -52,7 +52,7 @@ window.onload = () => {
     } 
 
     const gerarJogos = async () => {
-        listaJogos = await jogoService.buscaPorUser(getID(), sessionStorage.getItem("token"))
+        listaJogos = await jogoService.buscaPorUser(usuario.id, sessionStorage.getItem("token"))
         carregarCards(listaJogos)
     }    
 
