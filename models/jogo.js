@@ -51,9 +51,9 @@ module.exports = {
             return {status: false, error: error};
         }
     },
-    buscarPorUser: async function(id, order){
+    buscarPorUser: async function(id, ordem){
         try{
-            const resultado = await jogoModel.findAll({where: {idUsuario: id}, order: [[order, "ASC"]]})
+            const resultado = await jogoModel.findAll({where: {idUsuario: id}, order: [[ordem, "ASC"]]})
             return {status: true, jogos: resultado}
         }catch(error){
             console.error(error)

@@ -37,6 +37,47 @@ rotaAPI.delete("/:id", async (req, res) => {
     res.json(resultado)
 })
 
+/*APIs de analise*/
+//Cadastrar analise
+rotaAPI.post("/analise/:id", async (req, res) => {
+    const {error, value } = JOI.string().min(10).required().validate(req.body.texto)
+    if(error){
+        console.log(error)
+        return res.json({status: false, error: "analiseInvalida"})
+    }
+    let { id } = req.params
+    let resultado = await analise.cadastrar(id, req.body.idUsuario, value)
+    res.json(resultado)
+})
+
+//Buscar analise por ID do jogo
+rotaAPI.get("/analise/:id", async (req, res) => {
+    let { id } = req.params
+    console.log(id)
+    let resultado = await analise.buscarPorJogo(id)
+    res.json(resultado)
+})
+
+//Deletar a analise a partir da id da analise
+rotaAPI.delete("/analise/:id", async (req, res) => {
+    let { id } = req.params
+    let resultado = await analise.deletar(id)
+    res.json(resultado)
+
+})
+
+//Editar analise pelo id da analise
+rotaAPI.put("/analise/:id", async (req, res) => {
+    const {error, value } = JOI.string().min(10).required().validate(req.body.texto)
+    if(error){
+        console.log(error)
+        return res.json({status: false, error: "analiseInvalida"})
+    }
+    let { id } = req.params
+    let resultado = await analise.update(id, value)
+    res.json(resultado)
+})
+
 /*APIs de jogos*/
 //cadastrar jogo
 rotaAPI.post("/jogo/:id", async (req, res) => {
@@ -79,46 +120,7 @@ rotaAPI.put("/jogo/:id", async (req, res) => {
     res.json(resultado)
 })
 
-/*APIs de analise*/
-//Cadastrar analise
-rotaAPI.post("/analise/:id", async (req, res) => {
-    const {error, value } = JOI.string().min(10).required().validate(req.body.texto)
-    if(error){
-        console.log(error)
-        return res.json({status: false, error: "analiseInvalida"})
-    }
-    let { id } = req.params
-    let resultado = await analise.cadastrar(id, req.body.idUsuario, value)
-    res.json(resultado)
-})
 
-//Buscar analise por ID do jogo
-rotaAPI.get("/analise/:id", async (req, res) => {
-    let { id } = req.params
-    console.log(id)
-    let resultado = await analise.buscarPorJogo(id)
-    res.json(resultado)
-})
-
-//Deletar a analise a partir da id da analise
-rotaAPI.delete("/analise/:id", async (req, res) => {
-    let { id } = req.params
-    let resultado = await analise.deletar(id)
-    res.json(resultado)
-
-})
-
-//Editar analise pelo id da analise
-rotaAPI.put("/analise/:id", async (req, res) => {
-    const {error, value } = JOI.string().min(10).required().validate(req.body.texto)
-    if(error){
-        console.log(error)
-        return res.json({status: false, error: "analiseInvalida"})
-    }
-    let { id } = req.params
-    let resultado = await analise.update(id, value)
-    res.json(resultado)
-})
 
 
 
