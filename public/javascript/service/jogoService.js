@@ -10,12 +10,12 @@ let jogoService = {
         return await resposta.json()
     },
 
-    buscaPorUser: async function(id, token){
+    buscaPorUser: async function(id, order, token){
         const data = {
             headers: {'Content-type': 'application/json',
             "Authorization": "Bearer "+token},
         }
-        let resposta = await fetch("http://localhost:3000/API/"+id, data)
+        let resposta = await fetch("http://localhost:3000/API/"+id+"/"+order, data)
         return await resposta.json()
     },
 

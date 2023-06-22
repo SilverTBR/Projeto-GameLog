@@ -38,3 +38,47 @@ h1{
     padding-left: 5px;
     margin-bottom: 5px;
 }
+
+.grid-pags{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.grid-pags div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.grid-pags div:hover{
+    background-color: #8f9ca7;
+}
+
+.grid-pags div p {
+    color: white;
+}
+
+.grid-order{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.grid-order div {
+    margin-left: 10px;
+    background-color: aliceblue;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: pointer;
+}
+
+.grid-order div:hover{
+    background-color: #f0f8ff9f;
+}

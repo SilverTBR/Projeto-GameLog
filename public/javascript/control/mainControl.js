@@ -7,8 +7,11 @@ window.onload = () => {
     let usuario = JSON.parse(sessionStorage.getItem("usuario"));
     document.getElementById("perfil").innerHTML += usuario.nome
     
-    let listaJogos = [];
+    let paginas = []
+    let qntPgs = 0;
     const mainGrid = document.getElementById("grid");
+    const divPags = document.getElementById("div-pags");
+
 
     const gerarCard = (jogo) => {
         const card = document.createElement("article")
@@ -51,14 +54,44 @@ window.onload = () => {
         })
     } 
 
-    const gerarJogos = async () => {
-        let resultado = await jogoService.buscaPorUser(usuario.id, sessionStorage.getItem("token"))
+    const gerarPag = (paginas) => {
+        qntPgs++;
+        const pag = document.createElement("div");
+        
+        const numPg = document.createElement("p");
+        numPg.innerHTML = qntPgs;
+        pag.appendChild(numPg);
+
+        pag.addEventListener("click", () => {
+            carregarCards(paginas)
+        })
+
+        return pag;
+    }
+
+    const gerarJogos = async (order) => {
+        let resultado = await jogoService.buscaPorUser(usuario.id, order, sessionStorage.getItem("token"))
         if(!resultado.status){
             window.location.href = "/?error=SemPermissao";
         }
-        carregarCards(resultado.jogos)
+        paginas = []
+        divPags.innerHTML = ""
+        qntPgs = 0
+        while(resultado.jogos.length > 0){
+            paginas.push(resultado.jogos.splice(0, 8))            
+        }
+
+        paginas.forEach((pagina) => {
+           divPags.appendChild(gerarPag(pagina))
+        })
+
+        carregarCards(paginas[0])
+
     }    
+    gerarJogos("nome")
 
+    document.getElementById("order-nome").addEventListener("click",() => gerarJogos("nome"));
+    document.getElementById("order-dev").addEventListener("click", () => gerarJogos("desenvolvedora"));
+    document.getElementById("order-gen").addEventListener("click", () => gerarJogos("genero"));
 
-    gerarJogos()
 }

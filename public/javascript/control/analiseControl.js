@@ -23,7 +23,7 @@ window.onload = () => {
     }
 
     const carregarJogos = async () => {
-        let resultado = await jogoService.buscaPorUser(usuario.id, sessionStorage.getItem("token"));
+        let resultado = await jogoService.buscaPorUser(usuario.id, "nome", sessionStorage.getItem("token"));
         if (!resultado.status) {
             window.location.href = "/?error=SemPermissao";
         }

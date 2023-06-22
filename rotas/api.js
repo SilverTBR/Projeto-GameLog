@@ -50,9 +50,9 @@ rotaAPI.post("/jogo/:id", async (req, res) => {
 })
 
 //buscar por jogo pelo id
-rotaAPI.get("/:id", async (req, res) => {
-    let { id } = req.params
-    let resultado = await jogos.buscarPorUser(id)
+rotaAPI.get("/:id/:order", async (req, res) => {
+    let { id, order } = req.params
+    let resultado = await jogos.buscarPorUser(id, order)
     res.json(resultado)
 })
 
@@ -95,6 +95,7 @@ rotaAPI.post("/analise/:id", async (req, res) => {
 //Buscar analise por ID do jogo
 rotaAPI.get("/analise/:id", async (req, res) => {
     let { id } = req.params
+    console.log(id)
     let resultado = await analise.buscarPorJogo(id)
     res.json(resultado)
 })

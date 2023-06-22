@@ -76,7 +76,7 @@ module.exports = {
     deletarPorJogo: async function(id){
         try{
             let qntDeletados = await analiseModel.destroy({where:{idJogo: id}})
-            if(qntDeletados >= 1){
+            if(qntDeletados >= 0){
                 return {status: true}
             }else{
                 return {status: false, error: "0delete"}
@@ -93,7 +93,7 @@ module.exports = {
             if(qntDeletados >= 0){
                 return {status: true}
             }else{
-                return {status: false, error: "0delete"}
+                return {status: false, error: "0deleteAnalise"}
             }
         }catch(error){
             console.log(error)

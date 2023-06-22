@@ -51,17 +51,16 @@ module.exports = {
             return {status: false, error: error};
         }
     },
-    buscarPorUser: async function(id){
+    buscarPorUser: async function(id, order){
         try{
-            //const resultado = await jogoModel.findAll({where: {id: id}, order:[order, "DESC"]})
-            const resultado = await jogoModel.findAll({where: {idUsuario: id}})
+            const resultado = await jogoModel.findAll({where: {idUsuario: id}, order: [[order, "ASC"]]})
             return {status: true, jogos: resultado}
         }catch(error){
             console.error(error)
             return {status: false, error: error}
         }
     },
-    //continuar daqui
+
     update: async function (id, dados){
         try{
             let numRowsAffected = await jogoModel.update({nome: dados.nome, desenvolvedora: dados.desenvolvedora, distribuidora: dados.distribuidora, genero:dados.genero, subgenero: dados.subgenero}, {where: {id: id}})
@@ -97,7 +96,7 @@ module.exports = {
             if(qntDeletados >= 0){
                 return {status: true}
             }else{
-                return {status: false, error: "0delete"}
+                return {status: false, error: "0deleteJogo"}
             }
         }catch(error){
             console.log(error)
