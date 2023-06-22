@@ -10,7 +10,7 @@ rota.get("/", async (req, res) => {
     for (let i = 0; i < 5; i++) {
       let resultadoUsuario = await usuario.cadastrar(
         "usuario" + (i + 1),
-        "usuario" + (i + 1) + "gmail.com",
+        "usuario" + (i + 1) + "@gmail.com",
         "123456"
       );
       let idUsuario = resultadoUsuario.usuario.id;
@@ -30,12 +30,14 @@ rota.get("/", async (req, res) => {
 
         let idJogo = resultadoJogo.jogo.id;
 
-        // Cadastrar uma análise para cada jogo
-        let resultadoAnalise = await analise.cadastrar(
-          idJogo,
-          idUsuario,
-          "Analise do jogo " + (j + 1)
-        );
+        // Cadastrar 5 análises para cada jogo
+        for (let k = 0; k < 5; k++) {
+          let resultadoAnalise = await analise.cadastrar(
+            idJogo,
+            idUsuario,
+            "Análise " + (k + 1) + " do jogo " + (j + 1)
+          );
+        }
       }
     }
 
