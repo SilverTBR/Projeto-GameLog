@@ -1,4 +1,4 @@
-import analiseService from "../service/analiseService.js"
+import graficoService from "../service/graficoService.js"
 
 window.onload = () => {
   if (!sessionStorage.getItem("token")) {
@@ -9,9 +9,11 @@ window.onload = () => {
   let data = [];
   let labels = [];
   let resultado = null;
+  const ctx = document.getElementById('myChart')
+
 
   const carregarDados = async () => {
-    resultado = await analiseService.qntAnalisePorJogos(usuario.id, sessionStorage.getItem("token"));
+    resultado = await graficoService.qntAnalisePorJogos(usuario.id, sessionStorage.getItem("token"));
     if (!resultado.status) {
       window.location.href = "/?error=SemPermissao";
     }
@@ -24,10 +26,6 @@ window.onload = () => {
 
 
   const gerarGrafico = () => {
-
-    console.log(labels)
-    console.log(data)
-    const ctx = document.getElementById('myChart')
 
     new Chart(ctx, {
       type: 'bar',
@@ -50,7 +48,15 @@ window.onload = () => {
     });
   }
 
+  // const gerarPDF = () => {
+  //   const imgData = ctx.toDataURL("image/jpeg", 1.0);
+  //   const pdf = new jsPDF();
 
+  //   pdf.addImage(imgData, "JPEG", 0, 0);
+  //   pdf.save("download.pdf");
+  // };
+  // gerarPDF()
     
   carregarDados();
 }
+

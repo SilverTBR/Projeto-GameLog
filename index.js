@@ -19,6 +19,7 @@ const inicial = require("./rotas/paginas")
 const apiI = require("./rotas/apiInicial")
 const main = require("./rotas/main")
 const API = require("./rotas/api")
+const gerador = require("./rotas/gerador")
 
 app.use(session({
   secret:process.env.sessionChave,
@@ -44,6 +45,7 @@ app.use("/", inicial);
 app.use("/acesso", apiI);
 app.use("/main", main);
 app.use("/API", controlaAcesso, API)
+app.use("/gerador", gerador)
 
 
 

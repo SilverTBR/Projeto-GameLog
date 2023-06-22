@@ -84,9 +84,10 @@ window.onload = () => {
         paginas.forEach((pagina) => {
            divPags.appendChild(gerarPag(pagina))
         })
-
-        carregarCards(paginas[0])
-
+        
+        if (paginas.length > 0) {
+            carregarCards(paginas[0])
+        }
     }    
     gerarJogos("nome")
 
