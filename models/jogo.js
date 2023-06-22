@@ -1,4 +1,4 @@
-const {Sequelize ,DataTypes} = require("sequelize")
+const { Sequelize, DataTypes } = require("sequelize")
 const sequelize = require("../BD/mysql")
 const { usuarioModel } = require("./usuario");
 
@@ -29,14 +29,14 @@ const jogoModel = sequelize.define("Jogo", {
     }
 })
 
-jogoModel.belongsTo(usuarioModel, {foreignKey: "idUsuario"});
+jogoModel.belongsTo(usuarioModel, { foreignKey: "idUsuario" });
 
-jogoModel.sync({force: false})
+jogoModel.sync({ force: false })
 
 module.exports = {
     jogoModel,
-    cadastrar: async function (dados, id){
-        try{
+    cadastrar: async function (dados, id) {
+        try {
             const resultado = await jogoModel.create({
                 idUsuario: id,
                 nome: dados.nome,
@@ -45,63 +45,62 @@ module.exports = {
                 genero: dados.genero,
                 subgenero: dados.subgenero
             })
-            return {status: true, jogo: resultado}
-        }catch(error){
+            return { status: true, jogo: resultado }
+        } catch (error) {
             console.error(error)
-            return {status: false, error: error};
+            return { status: false, error: error };
         }
     },
-    buscarPorUser: async function(id, ordem){
-        try{
-            const resultado = await jogoModel.findAll({where: {idUsuario: id}, order: [[ordem, "ASC"]]})
-            return {status: true, jogos: resultado}
-        }catch(error){
+    buscarPorUser: async function (id, ordem) {
+        try {
+            const resultado = await jogoModel.findAll({ where: { idUsuario: id }, order: [[ordem, "ASC"]] })
+            return { status: true, jogos: resultado }
+        } catch (error) {
             console.error(error)
-            return {status: false, error: error}
+            return { status: false, error: error }
         }
     },
 
-    update: async function (id, dados){
-        try{
-            let numRowsAffected = await jogoModel.update({nome: dados.nome, desenvolvedora: dados.desenvolvedora, distribuidora: dados.distribuidora, genero:dados.genero, subgenero: dados.subgenero}, {where: {id: id}})
-            if(numRowsAffected[0]>0){
-                return {status: true}
-            }else{
+    update: async function (id, dados) {
+        try {
+            let numRowsAffected = await jogoModel.update({ nome: dados.nome, desenvolvedora: dados.desenvolvedora, distribuidora: dados.distribuidora, genero: dados.genero, subgenero: dados.subgenero }, { where: { id: id } })
+            if (numRowsAffected[0] > 0) {
+                return { status: true }
+            } else {
                 console.log("aqui")
-                return {status: false, error: "0update"}
+                return { status: false, error: "0update" }
             }
-        } catch(error) {
+        } catch (error) {
             console.error(error)
-            return {status: false, error: error};
+            return { status: false, error: error };
         }
     },
-    deletar: async function(id){
-        try{
-            let qntDeletados = await jogoModel.destroy({where:{id: id}})
-            if(qntDeletados == 1){
-                return {status: true}
-            }else{
-                return {status: false, error: "0delete"}
+    deletar: async function (id) {
+        try {
+            let qntDeletados = await jogoModel.destroy({ where: { id: id } })
+            if (qntDeletados == 1) {
+                return { status: true }
+            } else {
+                return { status: false, error: "0delete" }
             }
-        }catch(error){
+        } catch (error) {
             console.error(error)
-            return {status: false, error: error}
+            return { status: false, error: error }
         }
     },
 
-    //depois ver sobre uma forma de evitar com que ao colocar um id não cadastrado ele mesmo assim funciona 
-    deletarTodos: async function(idUsuario){
-        try{
-            let qntDeletados = await jogoModel.destroy({where:{idUsuario: idUsuario}})
-            if(qntDeletados >= 0){
-                return {status: true}
-            }else{
-                return {status: false, error: "0deleteJogo"}
+    deletarTodos: async function (idUsuario) {
+        try {
+            let qntDeletados = await jogoModel.destroy({ where: { idUsuario: idUsuario } })
+            if (qntDeletados >= 0) {
+                return { status: true }
+            } else {
+                return { status: false, error: "0deleteJogo" }
             }
-        }catch(error){
-            console.log(error)
-            return {status: false, error: error}
+        } catch (error) {
+            console.error(error)
+            return { status: false, error: error }
         }
-    },
+    }
 
 }

@@ -101,4 +101,31 @@ module.exports = {
         }
     },
 
+    qntAnalisePorJogos: async function (idUsuario) {
+        try {
+            let resultados = await analiseModel.findAll({
+                attributes: [
+                    'idJogo',
+                    [sequelize.fn('count', sequelize.col('texto')), 'quantidadeTextos']
+                ],
+                include: [{
+                    model: jogoModel,
+                    attributes: ['nome']
+                }],
+                where:{
+                    idUsuario: idUsuario
+                },
+                group: ['idJogo'],
+                raw: true
+            })
+
+
+            return{status: true, dados: resultados}
+
+        } catch (error) {
+            console.error(error)
+            return { status: false, error: error }
+        }
+    }
+
 }

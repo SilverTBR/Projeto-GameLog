@@ -26,5 +26,9 @@ main.get("/analise", (req, res) => {
     res.render("analise", { analise: analise})
 })
 
+main.get("/grafico", (req, res) => {
+    res.render("graph")
+})
+
 
 module.exports = main;

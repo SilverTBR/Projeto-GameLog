@@ -78,6 +78,12 @@ rotaAPI.put("/analise/:id", async (req, res) => {
     res.json(resultado)
 })
 
+rotaAPI.get("/grafico/:id", async (req, res) => {
+    let { id } = req.params
+    let resultado = await analise.qntAnalisePorJogos(id)
+    res.json(resultado)
+})
+
 /*APIs de jogos*/
 //cadastrar jogo
 rotaAPI.post("/jogo/:id", async (req, res) => {
