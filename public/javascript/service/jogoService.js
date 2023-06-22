@@ -1,10 +1,10 @@
 let jogoService = {
-    cadastrar: async function(id, nome, desenvolvedora, distribuidora, genero, subgenero, token){
+    cadastrar: async function(id, nome, desenvolvedora, distribuidora, genero, subgenero, preco, token){
         const data = {
             method: "POST",
             headers: {'Content-type': 'application/json',
             "Authorization": "Bearer "+token},
-            body: JSON.stringify({nome: nome, desenvolvedora: desenvolvedora, distribuidora: distribuidora, genero: genero, subgenero: subgenero})            
+            body: JSON.stringify({nome: nome, desenvolvedora: desenvolvedora, distribuidora: distribuidora, genero: genero, subgenero: subgenero, preco: preco})            
         }
         let resposta = await fetch("http://localhost:3000/API/jogo/"+id, data)
         return await resposta.json()
@@ -19,12 +19,12 @@ let jogoService = {
         return await resposta.json()
     },
 
-    editar: async function(id, nome, desenvolvedora, distribuidora, genero, subgenero, token){
+    editar: async function(id, nome, desenvolvedora, distribuidora, genero, subgenero, preco, token){
         const data = {
             method: "PUT",
             headers: {'Content-type': 'application/json',
             "Authorization": "Bearer "+token},
-            body: JSON.stringify({nome: nome, desenvolvedora: desenvolvedora, distribuidora: distribuidora, genero: genero, subgenero: subgenero})            
+            body: JSON.stringify({nome: nome, desenvolvedora: desenvolvedora, distribuidora: distribuidora, genero: genero, subgenero: subgenero, preco: preco})            
         }
         let resposta = await fetch("http://localhost:3000/API/jogo/"+id, data)
         return await resposta.json()

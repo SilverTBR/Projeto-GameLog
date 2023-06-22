@@ -27,14 +27,19 @@ window.onload = () => {
         return document.getElementById("distribuidora").value
     }
 
+    const getPreco = () => {
+        return document.getElementById("preco").value
+    }
+
     const verificarCampos = () => {
         const nome = getNome().trim();
         const genero = getGenero().trim();
         const subgenero = getSubgenero().trim();
         const desenvolvedora = getDesenvolvedora().trim();
         const distribuidora = getDistribuidora().trim();
+        const preco = getPreco().trim();
     
-        if (nome.length >= 3 && genero.length >= 3 && subgenero.length >= 3 && desenvolvedora.length >= 3 && distribuidora.length >= 3) {
+        if (nome.length >= 3 && genero.length >= 3 && subgenero.length >= 3 && desenvolvedora.length >= 3 && distribuidora.length >= 3 && preco.length>0) {
             return true;
         }
         return false;
@@ -42,7 +47,7 @@ window.onload = () => {
     
     const chamarCadastro = async () => {
         if(verificarCampos()){
-            let resultado = await jogoService.cadastrar(usuario.id, getNome(), getDesenvolvedora(), getDistribuidora(), getGenero(), getSubgenero(), sessionStorage.getItem("token"));
+            let resultado = await jogoService.cadastrar(usuario.id, getNome(), getDesenvolvedora(), getDistribuidora(), getGenero(), getSubgenero(), getPreco(), sessionStorage.getItem("token"));
             console.log(resultado)
             if(resultado.status){
                 window.location.href = "/main";
@@ -50,7 +55,6 @@ window.onload = () => {
                 document.getElementById("aviso").style.display = "flex"
             }
         }else{
-            console.log("qui")
             document.getElementById("aviso").style.display = "flex"
         }
     }

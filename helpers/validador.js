@@ -22,6 +22,7 @@ const jogosSchema = JOI.object({
     distribuidora: JOI.string().min(3).required(),
     genero: JOI.string().min(3).required(),
     subgenero: JOI.string().min(3).required(),
+    preco: JOI.number().min(1).required()
 })
 
 

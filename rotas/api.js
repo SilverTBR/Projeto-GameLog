@@ -4,18 +4,7 @@ const jogos = require("../models/jogo")
 const analise = require("../models/analise")
 var rotaAPI = express.Router();
 const JOI = require("joi")
-const { jsPDF } = require("jspdf");
 const { edicaoSchema, jogosSchema } = require("../helpers/validador.js");
-
-//ValidadorID
-function validarID(id) {
-    const { error, value } = JOI.number().required().validate(id);
-    if (error) {
-      throw new Error("ID inválido");
-    }
-    return value;
-  }
-
 
 /*APIs de usuario*/
 //Editar usuario
@@ -135,9 +124,6 @@ rotaAPI.put("/jogo/:id", async (req, res) => {
     let resultado = await jogos.update(id, value)
     res.json(resultado)
 })
-
-/*Geração do PDF*/
-
 
 
 

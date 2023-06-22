@@ -38,12 +38,23 @@ window.onload = () => {
         return document.getElementById("id").value
     }
 
+    const getPreco = () => {
+        return document.getElementById("preco").value
+    }
+
     const verificarCampos = () => {
-        if (getNome() != "" && getGenero() != "" && getSubgenero() != "" && getDesenvolvedora() != "" && getDistribuidora != "") {
-            return true
+        const nome = getNome().trim();
+        const genero = getGenero().trim();
+        const subgenero = getSubgenero().trim();
+        const desenvolvedora = getDesenvolvedora().trim();
+        const distribuidora = getDistribuidora().trim();
+        const preco = getPreco().trim();
+    
+        if (nome.length >= 3 && genero.length >= 3 && subgenero.length >= 3 && desenvolvedora.length >= 3 && distribuidora.length >= 3 && preco.length>0) {
+            return true;
         }
         return false;
-    }
+    };
 
     function alternarEdicao() {
         const btnEditar = document.getElementById('editar');
@@ -79,7 +90,7 @@ window.onload = () => {
 
     const chamarEditar = async () => {
         if (verificarCampos()) {
-            let resultado = await jogoService.editar(getID(), getNome(), getDesenvolvedora(), getDistribuidora(), getGenero(), getSubgenero(), sessionStorage.getItem("token"));
+            let resultado = await jogoService.editar(getID(), getNome(), getDesenvolvedora(), getDistribuidora(), getGenero(), getSubgenero(), getPreco(), sessionStorage.getItem("token"));
             if (!resultado.status) {
                 document.getElementById("aviso").style.display = "flex"
             } else {

@@ -32,7 +32,7 @@ window.onload = () => {
       data: {
         labels: labels,
         datasets: [{
-          label: 'Quantidade de Textos',
+          label: 'Quantidade de analises',
           data: data,
           borderWidth: 1
         }]

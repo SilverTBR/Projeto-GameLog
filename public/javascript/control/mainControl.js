@@ -77,6 +77,7 @@ window.onload = () => {
         paginas = []
         divPags.innerHTML = ""
         qntPgs = 0
+        
         while(resultado.jogos.length > 0){
             paginas.push(resultado.jogos.splice(0, 8))            
         }

@@ -26,6 +26,10 @@ const jogoModel = sequelize.define("Jogo", {
     idUsuario: {
         type: DataTypes.INTEGER,
         allowNull: false
+    },
+    preco: {
+        type: DataTypes.FLOAT,
+        allowNull: false
     }
 })
 
@@ -43,7 +47,8 @@ module.exports = {
                 desenvolvedora: dados.desenvolvedora,
                 distribuidora: dados.distribuidora,
                 genero: dados.genero,
-                subgenero: dados.subgenero
+                subgenero: dados.subgenero,
+                preco: dados.preco
             })
             return { status: true, jogo: resultado }
         } catch (error) {
@@ -63,7 +68,7 @@ module.exports = {
 
     update: async function (id, dados) {
         try {
-            let numRowsAffected = await jogoModel.update({ nome: dados.nome, desenvolvedora: dados.desenvolvedora, distribuidora: dados.distribuidora, genero: dados.genero, subgenero: dados.subgenero }, { where: { id: id } })
+            let numRowsAffected = await jogoModel.update({ nome: dados.nome, desenvolvedora: dados.desenvolvedora, distribuidora: dados.distribuidora, genero: dados.genero, subgenero: dados.subgenero, preco: dados.preco }, { where: { id: id } })
             if (numRowsAffected[0] > 0) {
                 return { status: true }
             } else {

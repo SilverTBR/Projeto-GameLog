@@ -23,7 +23,8 @@ rota.get("/", async (req, res) => {
             desenvolvedora: "Desenvolvedora " + (j + 1),
             distribuidora: "Distribuidora " + (j + 1),
             genero: "genero " + (j + 1),
-            subgenero: "Subgenero " + (j + 1)
+            subgenero: "Subgenero " + (j + 1),
+            preco: (j+1)
           },
           idUsuario
         );
