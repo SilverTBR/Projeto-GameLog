@@ -34,10 +34,10 @@ module.exports = {
         const token = jwt.sign({usuario:resultado.dataValues}, process.env.jwtChave, {
             expiresIn: "1h"
         })
-        return {token: token, usuario: resultado.dataValues}
+        return {status: true, token: token, usuario: resultado.dataValues}
         }catch(error){
             console.error(error)
-            return error
+            return {status: false, error: error}
         }
     },
 
@@ -45,15 +45,15 @@ module.exports = {
         try{
         const resultado = await usuarioModel.findOne({where: {email: email, senha: senha}})
         if(resultado === null){
-            return {errors: "Resultado não foi obtido"}
+            return {status: false, error: "0resultado"}
         }
         const token = jwt.sign({usuario:resultado.dataValues}, process.env.jwtChave, {
             expiresIn: "1h"
         })
-        return {token: token, usuario: resultado.dataValues}
+        return {status: true, token: token, usuario: resultado.dataValues}
         }catch(error){
             console.error(error)
-            return error
+            return {status: false, error: error}
         }
     },
 
@@ -61,13 +61,13 @@ module.exports = {
         try{
             let numRowsAffected = await usuarioModel.update({nome: dados.nome, senha: dados.senha}, {where: {id: id}})
             if(numRowsAffected[0]>0){
-                return true
+                return {status: true}
             }else{
-                return {errors: "ImpossivelEditar"}
+                return {status: false, error: "0update"}
             }
         } catch(error) {
             console.error(error)
-            return error
+            return {status: false, error: error}
         }
     },
 
@@ -75,15 +75,15 @@ module.exports = {
         try{
             const resultado = await usuarioModel.findOne({where: {id: id}})
             if(resultado === null){
-                return {errors: "Resultado não foi obtido pela chave primaria"}
+                return {status: false, error: "0user"}
             }
             const token = jwt.sign({usuario:resultado.dataValues}, process.env.jwtChave, {
                 expiresIn: "1h"
             })
-            return {token: token, usuario: resultado.dataValues}
+            return {status: true, token: token, usuario: resultado.dataValues}
             }catch(error){
                 console.error(error)
-                return error
+                return {status: false, error: error}
             }
     },
 
@@ -91,13 +91,13 @@ module.exports = {
         try{
             let qntDeletados = await usuarioModel.destroy({where:{id: id}})
             if(qntDeletados == 1){
-                return true
+                return {status: true}
             }else{
-                return {errors: "Não foi possivel deletar o usuario"}
+                return {status: false, error: "0delete"}
             }
         }catch(error){
             console.error(error)
-            return error
+            return {status: false, error: error}
         }
     }
 

@@ -45,49 +45,48 @@ module.exports = {
                 genero: dados.genero,
                 subgenero: dados.subgenero
             })
-            if(resultado){
-                return true
-            }
-            return {errors: "Cadastro de jogo falhou"};
+            return {status: true, jogo: resultado}
         }catch(error){
             console.error(error)
+            return {status: false, error: error};
         }
     },
     buscarPorUser: async function(id){
         try{
             //const resultado = await jogoModel.findAll({where: {id: id}, order:[order, "DESC"]})
             const resultado = await jogoModel.findAll({where: {idUsuario: id}})
-            return resultado
+            return {status: true, jogos: resultado}
         }catch(error){
             console.error(error)
-            return error
+            return {status: false, error: error}
         }
     },
+    //continuar daqui
     update: async function (id, dados){
-        console.log(id)
         try{
             let numRowsAffected = await jogoModel.update({nome: dados.nome, desenvolvedora: dados.desenvolvedora, distribuidora: dados.distribuidora, genero:dados.genero, subgenero: dados.subgenero}, {where: {id: id}})
             if(numRowsAffected[0]>0){
-                return true
+                return {status: true}
             }else{
-                return {errors: "Não foi possivel dar update no jogo"}
+                console.log("aqui")
+                return {status: false, error: "0update"}
             }
         } catch(error) {
             console.error(error)
-            return error;
+            return {status: false, error: error};
         }
     },
     deletar: async function(id){
         try{
             let qntDeletados = await jogoModel.destroy({where:{id: id}})
             if(qntDeletados == 1){
-                return true
+                return {status: true}
             }else{
-                return {errors: "Não foi possivel deletar o jogo"}
+                return {status: false, error: "0delete"}
             }
         }catch(error){
             console.error(error)
-            return error;
+            return {status: false, error: error}
         }
     },
 
@@ -96,13 +95,13 @@ module.exports = {
         try{
             let qntDeletados = await jogoModel.destroy({where:{idUsuario: idUsuario}})
             if(qntDeletados >= 0){
-                return true
+                return {status: true}
             }else{
-                return {errors: "Não foi possivel deletar todos os jogo"}
+                return {status: false, error: "0delete"}
             }
         }catch(error){
             console.log(error)
-            return error
+            return {status: false, error: error}
         }
     },
 

@@ -33,31 +33,25 @@ window.onload = () => {
     }
 
     const validarCampos = () => {
-        if (getNome().trim() != "" && getSenha().trim() != "") {
+        if (getNome().trim().length >= 3 && getSenha().trim().length >= 3) {
             return true
         }
         return false
     }
-
-    const definirAviso = (error) => {
-        if (error.errors == "0editar") {
-            document.getElementById("aviso-text").innerHTML = "Não foi possivel editar!"
-        }
-        else if(error.errors == "ImpossivelEditar"){
-            document.getElementById("aviso-text").innerHTML = "Impossivel editar usuario!"
-        }
-        document.getElementById("aviso").style.display = "flex"
-    }
-
+    
     const chamarUpdate = async () => {
         if (validarCampos() && validarSenha()) {
             let resultado = await perfilService.update(usuario.id, getNome(), getSenha(), sessionStorage.getItem("token"));
-            if (resultado.errors) {
-                definirAviso(resultado)
+            if (!resultado.status) {
+                if(resultado.error === "camposInvalidos"){
+                    document.getElementById("aviso").style.display = "flex"
+                }else{
+                    window.location.href = "/?error=SemPermissao";
+                }
             } else {
                 sessionStorage.setItem("token", resultado.token);
                 sessionStorage.setItem("usuario", JSON.stringify(resultado.usuario))
-                window.location.href = "http://localhost:3000/main";
+                window.location.href = "/main";
             }
         } else {
             document.getElementById("aviso").style.display = "flex"
@@ -66,12 +60,10 @@ window.onload = () => {
 
     const chamarDelete = async () => {
         let resultado = await perfilService.delete(usuario.id, sessionStorage.getItem("token"));
-        if (!resultado.errors) {
-            if (resultado) {
-                window.location.href = "http://localhost:3000/"
-            } 
+        if (resultado.status) {
+            window.location.href = "http://localhost:3000/"
         }else{
-            definirAviso(resultado)
+            window.location.href = "/?error=SemPermissao";
         }
 
     }

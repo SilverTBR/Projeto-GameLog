@@ -2,7 +2,8 @@ const express = require("express")
 const mailer = require("../nodeMailer/mailer")
 const usuario = require("../models/usuario")
 var rotaAPI = express.Router();
-//bettertoken
+const { loginSchema, cadastroSchema } = require("../helpers/validador.js");
+
 
 rotaAPI.post("/mailer", async (req, res) => {
     let {email, nome, mensagem, assunto} = req.body
@@ -11,14 +12,22 @@ rotaAPI.post("/mailer", async (req, res) => {
 })
 
 rotaAPI.post("/cadastrar", async (req, res) => {
-    let {nome ,email, senha} = req.body
+    const {error, value } = cadastroSchema.validate(req.body)
+    if(error){
+        return res.json({status: false, error: "campos invalidos"})
+    }
+    let {nome ,email, senha} = value
     let resultado = await usuario.cadastrar(nome, email, senha);
     res.json(resultado)
     
 })
 
 rotaAPI.post("/logar", async (req, res) => {
-    let {email, senha} = req.body
+    const {error, value } = loginSchema.validate(req.body)
+    if(error){
+        return res.json({status: false, error: "email ou senha invalidos"})
+    }
+    let {email, senha} = value
     let resultado = await usuario.logar(email, senha);
     res.json(resultado)
 })

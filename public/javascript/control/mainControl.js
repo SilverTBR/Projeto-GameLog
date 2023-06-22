@@ -52,8 +52,11 @@ window.onload = () => {
     } 
 
     const gerarJogos = async () => {
-        listaJogos = await jogoService.buscaPorUser(usuario.id, sessionStorage.getItem("token"))
-        carregarCards(listaJogos)
+        let resultado = await jogoService.buscaPorUser(usuario.id, sessionStorage.getItem("token"))
+        if(!resultado.status){
+            window.location.href = "/?error=SemPermissao";
+        }
+        carregarCards(resultado.jogos)
     }    
 
 

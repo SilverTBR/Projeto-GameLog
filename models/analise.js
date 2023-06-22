@@ -31,48 +31,59 @@ module.exports = {
                 idUsuario: idUsuario,
                 texto: texto
             })
-            console.log(resultado)
-            if(!resultado.errors){
-                return true
-            }
-            return {errors: "Cadastro de analise falhou"};
+            return {status: true, analise: resultado}
         }catch(error){
             console.error(error)
+            return {status: false, error: error}
         }
     },
     buscarPorJogo: async function(id){
         try{
             const resultado = await analiseModel.findAll({where: {idJogo: id}})
-            return resultado
+            return {status: true, analises: resultado}
         }catch(error){
             console.error(error)
-            return error
+            return {status: false, error: error}
         }
     },
     update: async function (id, texto){
         try{
             let numRowsAffected = await analiseModel.update({texto: texto}, {where: {id: id}})
             if(numRowsAffected[0]>0){
-                return true
+                return {status: true}
             }else{
-                return {errors: "Não foi possivel dar update na analise"}
+                return {status: false, error: "0update"}
             }
         } catch(error) {
             console.error(error)
-            return error;
+            return {status: false, error: error};
         }
     },
     deletar: async function(id){
         try{
             let qntDeletados = await analiseModel.destroy({where:{id: id}})
             if(qntDeletados == 1){
-                return true
+                return {status: true}
             }else{
-                return {errors: "Não foi possivel deletar a analise"}
+                return {status: false, error: "0delete"}
             }
         }catch(error){
             console.error(error)
-            return error;
+            return {status: false, error: error};
+        }
+    },
+
+    deletarPorJogo: async function(id){
+        try{
+            let qntDeletados = await analiseModel.destroy({where:{idJogo: id}})
+            if(qntDeletados >= 1){
+                return {status: true}
+            }else{
+                return {status: false, error: "0delete"}
+            }
+        }catch(error){
+            console.error(error)
+            return {status: false, error: error};
         }
     },
 
@@ -80,13 +91,13 @@ module.exports = {
         try{
             let qntDeletados = await analiseModel.destroy({where:{idUsuario: idUsuario}})
             if(qntDeletados >= 0){
-                return true
+                return {status: true}
             }else{
-                return {errors: "Não foi possivel deletar todos os jogo"}
+                return {status: false, error: "0delete"}
             }
         }catch(error){
             console.log(error)
-            return error
+            return {status: false, error: error}
         }
     },
 

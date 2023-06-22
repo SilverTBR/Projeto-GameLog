@@ -2,7 +2,7 @@ import analiseService from "../service/analiseService.js"
 import jogoService from "../service/jogoService.js"
 
 window.onload = () => {
-    if(!sessionStorage.getItem("token")){
+    if (!sessionStorage.getItem("token")) {
         window.location.href = "/?error=SemPermissao";
     }
     let usuario = JSON.parse(sessionStorage.getItem("usuario"));
@@ -16,35 +16,38 @@ window.onload = () => {
     }
 
     const validarCampos = () => {
-        if(idJogo != "" && getAnalise() != ""){
+        if (idJogo != "" && getAnalise().trim().length >= 10) {
             return true
         }
         return false
     }
 
     const carregarJogos = async () => {
-       let lista = await jogoService.buscaPorUser(usuario.id,sessionStorage.getItem("token"));
-       lista.forEach(jogo => {
+        let resultado = await jogoService.buscaPorUser(usuario.id, sessionStorage.getItem("token"));
+        if (!resultado.status) {
+            window.location.href = "/?error=SemPermissao";
+        }
+        resultado.jogos.forEach(jogo => {
             const opcao = document.createElement("option");
             opcao.value = jogo.id;
             opcao.text = jogo.nome;
             listaDrop.appendChild(opcao)
-       });
+        });
     }
 
-    listaDrop.addEventListener("change", () =>{
+    listaDrop.addEventListener("change", () => {
         idJogo = listaDrop.value
     })
 
     const chamarCadastro = async () => {
-        if(validarCampos()){
+        if (validarCampos()) {
             let resposta = await analiseService.cadastrar(idJogo, getAnalise(), usuario.id, sessionStorage.getItem("token"));
-            if(!resposta.errors){
+            if (resposta.status) {
                 window.location.href = "http://localhost:3000/main";
-            }else{
+            } else {
                 document.getElementById("aviso").style.display = "flex"
             }
-        }else{
+        } else {
             document.getElementById("aviso").style.display = "flex"
         }
     }

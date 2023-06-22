@@ -1,7 +1,6 @@
 import jogoService from "../service/jogoService.js"
 import analiseService from "../service/analiseService.js"
 
-
 window.onload = () => {
     if(!sessionStorage.getItem("token")){
         window.location.href = "/?error=SemPermissao";
@@ -81,10 +80,10 @@ window.onload = () => {
     const chamarEditar = async () => {
         if (verificarCampos()) {
             let resultado = await jogoService.editar(getID(), getNome(), getDesenvolvedora(), getDistribuidora(), getGenero(), getSubgenero(), sessionStorage.getItem("token"));
-            if (!resultado.errors) {
-                window.location.href = "/main"
-            } else {
+            if (!resultado.status) {
                 document.getElementById("aviso").style.display = "flex"
+            } else {
+                window.location.href = "/main"
             }
         } else {
             document.getElementById("aviso").style.display = "flex"
@@ -93,12 +92,12 @@ window.onload = () => {
 
     const chamarDel = async () => {
         let resultado = await jogoService.deletar(getID(), sessionStorage.getItem("token"))
-        if (!resultado.errors) {
-            window.location.href = "/main"
-        } else {
-            //Fiz dessa forma pois o erro que poderia dar é id invalida ou algo desse tipo e se tal erro ocorrer num é para estar ali, pelo menos acho
+        console.log(resultado)
+        if (!resultado.status) {
             sessionStorage.clear()
             window.location.href = "/?error=SemPermissao"
+        } else {
+            window.location.href = "/main"
         }
 
     }
@@ -135,7 +134,7 @@ window.onload = () => {
 
     const gerarAnalise = async () => {
         listaAnalise = await analiseService.buscaPorJogo(getID(), sessionStorage.getItem("token"))
-        carregarCards(listaAnalise)
+        carregarCards(listaAnalise.analises)
     }
 
     gerarAnalise()

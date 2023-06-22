@@ -3,34 +3,49 @@ const usuario = require("../models/usuario")
 const jogos = require("../models/jogo")
 const analise = require("../models/analise")
 var rotaAPI = express.Router();
+const JOI = require("joi")
+const { edicaoSchema, jogosSchema } = require("../helpers/validador.js");
+
 
 /*APIs de usuario*/
 //Editar usuario
 rotaAPI.put("/:id", async (req, res) => {
-    let { id } = req.params
-    let { nome, senha } = req.body
-    let dados = { nome, senha }
-    let concluido = await usuario.update(id, dados)
-    if (!concluido.errors) {
-        let resultado = await usuario.buscarPorPk(id)
-        res.json(resultado)
-    } else {
-        res.json(concluido)
+    const {error, value } = edicaoSchema.validate(req.body)
+    if(error){
+        return res.json({status: false, error: "camposInvalidos"})
     }
+    let { id } = req.params
+    let resultado = await usuario.update(id, value)
+    if (resultado.status) {
+        resultado = await usuario.buscarPorPk(id)
+    } 
+    res.json(resultado)
 })
 
 //deletar usuario
 rotaAPI.delete("/:id", async (req, res) => {
     let { id } = req.params
-    let resultado = await usuario.deletar(id)
+    let resultado = null;
+    resultado = await analise.deletarTodos(id);
+    if(resultado.status){
+        resultado = await jogos.deletarTodos(id);
+        if(resultado.status){
+            resultado = await usuario.deletar(id)
+        }
+    }
+    //Deveria tentar por um rollback quando tiver tempo
     res.json(resultado)
 })
 
 /*APIs de jogos*/
 //cadastrar jogo
 rotaAPI.post("/jogo/:id", async (req, res) => {
+    const {error, value } = jogosSchema.validate(req.body)
+    if(error){
+        return res.json({status: false, error: "camposInvalidos"})
+    }
     let { id } = req.params
-    let resultado = await jogos.cadastrar(req.body, id)
+    let resultado = await jogos.cadastrar(value, id)
     res.json(resultado)
 })
 
@@ -38,49 +53,42 @@ rotaAPI.post("/jogo/:id", async (req, res) => {
 rotaAPI.get("/:id", async (req, res) => {
     let { id } = req.params
     let resultado = await jogos.buscarPorUser(id)
-    if (resultado.errors) {
-        res.render("/?error=SemPermissao")
-    }
     res.json(resultado)
 })
 
 //deletar jogo por id
 rotaAPI.delete("/jogo/:id", async (req, res) => {
+    let resultado = null
     let { id } = req.params
-    let resultado = await jogos.deletar(id)
-        console.log(resultado)
-        res.json(resultado)
-
-})
-
-//Deletar todos os jogos pelo id do usuario
-rotaAPI.delete("/jogo/all/:id", async (req, res) => {
-    let { id } = req.params
-    let resultado = await jogos.deletarTodos(id)
-    console.log(resultado)
+    resultado = await analise.deletarPorJogo(id)
+    if(resultado.status){
+        resultado = await jogos.deletar(id)
+    }
     res.json(resultado)
-
 })
 
 //Editar jogos pelo id do jogo
 rotaAPI.put("/jogo/:id", async (req, res) => {
-    let { id } = req.params
-    let { nome, desenvolvedora, distribuidora, genero, subgenero } = req.body
-    let dados = { nome, desenvolvedora, distribuidora, genero, subgenero }
-    let concluido = await jogos.update(id, dados)
-    if (concluido) {
-        res.json(concluido)
-    } else {
-        resultado = { errors: "Não foi possivel editar" }
-        res.json(resultado)
+    const {error, value } = jogosSchema.validate(req.body)
+    if(error){
+        console.log(error)
+        return res.json({status: false, error: "camposInvalidos"})
     }
+    let { id } = req.params
+    let resultado = await jogos.update(id, value)
+    res.json(resultado)
 })
 
 /*APIs de analise*/
 //Cadastrar analise
 rotaAPI.post("/analise/:id", async (req, res) => {
+    const {error, value } = JOI.string().min(10).required().validate(req.body.texto)
+    if(error){
+        console.log(error)
+        return res.json({status: false, error: "analiseInvalida"})
+    }
     let { id } = req.params
-    let resultado = await analise.cadastrar(id, req.body.idUsuario, req.body.texto)
+    let resultado = await analise.cadastrar(id, req.body.idUsuario, value)
     res.json(resultado)
 })
 
@@ -88,9 +96,6 @@ rotaAPI.post("/analise/:id", async (req, res) => {
 rotaAPI.get("/analise/:id", async (req, res) => {
     let { id } = req.params
     let resultado = await analise.buscarPorJogo(id)
-    if (resultado.errors == null) {
-        res.render("/?error=SemPermissao")
-    }
     res.json(resultado)
 })
 
@@ -104,23 +109,14 @@ rotaAPI.delete("/analise/:id", async (req, res) => {
 
 //Editar analise pelo id da analise
 rotaAPI.put("/analise/:id", async (req, res) => {
-    let { id } = req.params
-    let { texto } = req.body
-    let concluido = await analise.update(id, texto)
-    if (concluido) {
-        res.json(concluido)
-    } else {
-        resultado = { errors: "Não foi possivel editar" }
-        res.json(resultado)
+    const {error, value } = JOI.string().min(10).required().validate(req.body.texto)
+    if(error){
+        console.log(error)
+        return res.json({status: false, error: "analiseInvalida"})
     }
-})
-
-//Deletar todos as analises pelo id do usuario
-rotaAPI.delete("/analise/all/:id", async (req, res) => {
     let { id } = req.params
-    let resultado = await jogos.deletarTodos(id)
+    let resultado = await analise.update(id, value)
     res.json(resultado)
-
 })
 
 

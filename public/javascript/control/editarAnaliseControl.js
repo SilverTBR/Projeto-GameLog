@@ -16,7 +16,7 @@ window.onload = () => {
     }
 
     const validarCampos = () => {
-        if(getID() != "" && getAnalise() != ""){
+        if(getID() != "" && getAnalise().trim().length >= 10){
             return true
         }
         return false
@@ -24,10 +24,9 @@ window.onload = () => {
 
     const chamarExcluir = async () => {
         let resultado = await analiseService.deletar(getID(), sessionStorage.getItem("token"))
-        if (!resultado.errors) {
+        if (resultado.status) {
             window.location.href = "/main";
         } else {
-            //Fiz dessa forma pois o erro que poderia dar é id invalida ou algo desse tipo e se tal erro ocorrer num é para estar ali, pelo menos acho
             sessionStorage.clear()
             window.location.href = "/?error=SemPermissao"
         }
@@ -37,7 +36,7 @@ window.onload = () => {
         const chamarEditar = async () => {
         if (validarCampos()) {
             let resultado = await analiseService.editar(getID(), getAnalise(), sessionStorage.getItem("token"))
-            if (!resultado.errors) {
+            if (resultado.status) {
                 window.location.href = "/main"
             } else {
                 document.getElementById("aviso").style.display = "flex"

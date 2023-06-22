@@ -25,33 +25,39 @@ window.onload = () => {
     }
 
     const verificarCamposC = () => {
-        if (emailRegex.test(getEmail()) && getNome().trim() != "" && getsenha().trim() != "") {
+        if (emailRegex.test(getEmail()) && getNome().trim().length >= 3 && getsenha().trim().length >= 3) {
             return true
         }
         return false
     }
 
     const verificarCamposL = () => {
-        if (emailRegex.test(getEmail()) && getsenha().trim() != "") {
+        if (emailRegex.test(getEmail()) && getsenha().trim().length >= 3) {
             return true
         }
         return false
     }
 
     const definirAviso = (error) => {
+        console.log(error)
         if (error.name == "SequelizeUniqueConstraintError") {
             document.getElementById("aviso-text").innerHTML = "Email já cadastrado! Por favor digite um email unico!"
         } else if (error === "SemPermissao") {
             document.getElementById("aviso-text").innerHTML = "Acesso negado! Você não tem permissão para acessar esta página.";
-        }
+        } else if(error ===  "0resultado"){
+            document.getElementById("aviso-text").innerHTML = "Email ou senha estão incorretos!";
+        } else{
+            document.getElementById("aviso-text").innerHTML = "Acesso negado! Erro no banco de dados";
+        } 
         document.getElementById("aviso").style.display = "flex"
     }
 
     const cadastrar = async () => {
         if (verificarCamposC() && confirmarSenha()) {
             let resultado = await usuarioService.cadastrar(getNome(), getEmail(), getsenha());
-            if (resultado.errors) {
-                definirAviso(resultado);
+            console.log(resultado)
+            if (!resultado.status) {
+                definirAviso(resultado.error);
             } else {
                 sessionStorage.setItem("token", resultado.token);
                 sessionStorage.setItem("usuario", JSON.stringify(resultado.usuario))
@@ -65,8 +71,8 @@ window.onload = () => {
     const logar = async () => {
         if (verificarCamposL()) {
             let resultado = await usuarioService.login(getEmail(), getsenha());
-            if (resultado.errors) {
-                definirAviso(resultado)
+            if (!resultado.status) {
+                definirAviso(resultado.error)
             } else {
                 sessionStorage.setItem("token", resultado.token);
                 sessionStorage.setItem("usuario", JSON.stringify(resultado.usuario))

@@ -28,21 +28,29 @@ window.onload = () => {
     }
 
     const verificarCampos = () => {
-        if(getNome() != "" && getGenero() != "" && getSubgenero() != "" && getDesenvolvedora() != "" && getDistribuidora() != ""){
-            return true
-       }
-       return false;
-    }
+        const nome = getNome().trim();
+        const genero = getGenero().trim();
+        const subgenero = getSubgenero().trim();
+        const desenvolvedora = getDesenvolvedora().trim();
+        const distribuidora = getDistribuidora().trim();
+    
+        if (nome.length >= 3 && genero.length >= 3 && subgenero.length >= 3 && desenvolvedora.length >= 3 && distribuidora.length >= 3) {
+            return true;
+        }
+        return false;
+    };
     
     const chamarCadastro = async () => {
         if(verificarCampos()){
             let resultado = await jogoService.cadastrar(usuario.id, getNome(), getDesenvolvedora(), getDistribuidora(), getGenero(), getSubgenero(), sessionStorage.getItem("token"));
-            if(!resultado.errors){
+            console.log(resultado)
+            if(resultado.status){
                 window.location.href = "/main";
             }else{
                 document.getElementById("aviso").style.display = "flex"
             }
         }else{
+            console.log("qui")
             document.getElementById("aviso").style.display = "flex"
         }
     }
