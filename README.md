@@ -14,7 +14,8 @@ FUNCIONALIDADES:
 - CRUD de jogos;
 - Na listagem de jogos ter possibilidade de ordenar a listagem com base em atributos;
 - Exibir um grafico de analises feitas por jogo;
-- Capacidade de enviar email de contato.
+- Capacidade de enviar email de contato;
+- Impossibilitar acessar paginas enquanto não estiver logado.
 
 TECNOLOGIAS UTILIZADAS:
 - Node.JS: Utilizado para hostear a parte do servidor do site;
@@ -28,6 +29,7 @@ TECNOLOGIAS UTILIZADAS:
 - Chart.JS: Utilizado para criação de grafico de quantidades de analises por jogo.
 
 INICIALIZAÇÂO:
-É necessario que tenha MySQL previamente instalado;
-No .env as inforamções para entrar no MySQL;
-O node.JS instalado na maquina
+- É necessario que tenha MySQL previamente instalado;
+- No .env as inforamções para entrar no MySQL;
+- O node.JS instalado na maquina;
+- Na pasta do projeto realizar o comando: NPM start
