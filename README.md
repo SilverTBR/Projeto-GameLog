@@ -4,7 +4,7 @@ DESENVOLVEDOR:
 - Eduardo Pereira Baratera.
 
 CONTEXTO DO PROJETO:
-Este projeto foi desenvolvido para a materia de programação de WEB 2 da Universidade Tecnológica Federal do Paraná de Cornelio Procopio orientado pelo professor Adriano Rivolli Da Silva.
+Este projeto foi desenvolvido para a materia de programação de WEB 2 da Universidade Tecnológica Federal do Paraná de Cornelio Procopio orientado pelo professor Adriano Rivolli Da Silva, durante o 7º periodo de Engenharia de Software.
 
 DESCRIÇÃO DO PROJETO:
 Pagina inspirada no backloGGD, qual busca ser uma pagina onde se armazenar os jogos que uma pessoa terminou ou deseja terminar, neste projeto teve algumas alterações com base nesta ideia para atingir os requisitos do professor, a ideia deste projeto era colocar em pratica as diversas cosias que foram aprendidas durante o periodo de WEB 2, como uso e desenvolvimento de API REST, template em mustache, validação por joi, conexão com o banco de dados por sequelize.
