@@ -26,3 +26,8 @@ TECNOLOGIAS UTILIZADAS:
 - Sequelize: Utilizado para se conectador ao banco de dados mySQL e realizar operações sobre o mesmo;
 - MySQL: Utilizado como banco de dados para este site;
 - Chart.JS: Utilizado para criação de grafico de quantidades de analises por jogo.
+
+INICIALIZAÇÂO:
+É necessario que tenha MySQL previamente instalado;
+No .env as inforamções para entrar no MySQL;
+O node.JS instalado na maquina
